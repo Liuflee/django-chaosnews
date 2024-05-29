@@ -1,0 +1,389 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chaos News</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
+
+  <!-- script para cambiar modo -->
+  <script src="{% static 'script.js' %}"></script>
+</head>
+
+
+<body class="light-mode"> <!-- esta clase sirve para cambiar el modo -->
+<!-- navbar que se colapsapara  que sea reponsive-->
+<nav class="navbar navbar-expand-lg navbar ">
+  <a class="navbar-brand" href="index"> <img class="logo" src="{% static 'images/Chaos News-logo.png' %}" alt=""></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav m-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="quienes-somos"><img src="{% static 'images/about-us-icon.png' %}" class="icon about-us-icon" alt=""> Quiénes somos</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="FAQ"><img src="{% static 'images/FAQ-icon.png' %}"  class="icon faq-icon" alt=""> FAQ</a>
+      </li>
+      
+      <li class="nav-item">
+        <a class="nav-link" id="contacto" data-toggle="modal" data-target="#contactoModal"><img src="{% static 'images/contact-us-icon.png' %}" class="icon contact-us-icon" alt=""> Contactános</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="loginBtn" href="login"><img src="{% static 'images/login-icon.png' %}" class="icon login-icon" alt=""> Inicio de sesión</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="modoBtn" href="#"><img src="{% static 'images/dark-theme-icon.png' %}" class="icon dark-mode-icon" alt=""> Cambiar de Modo</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+
+
+<hr class="hrxd">
+
+
+<div class="container">
+  <div class="row mt-2 first-row">
+    <!-- carrusel -->
+    <div class="col mx-0">
+      <div id="carouselMiniTitulares" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner rounded">
+          <!-- titulares -->
+          <div class="carousel-item active c-itemmini">
+            <img src="{% static 'images/Tokyo.jpg' %}" class="d-block w-100 c-imgmini" alt="...">
+            <div class="carousel-caption">
+              <h5 class="card-title">Tokyo se ve maravilloso en las noches de verano</h5>
+            </div>
+          </div>
+
+          <div class="carousel-item c-itemmini">
+            <img src="{% static 'images/Sydney.webp' %}" class="d-block w-100 c-imgmini" alt="...">
+            <div class="carousel-caption">
+              <h5 class="card-title">Día de la opera en Sydney </h5>
+            </div>
+          </div>
+          <!-- acá se pueden añadir más titulares -->
+        </div>
+        <!-- controles del carrusel -->
+        <a class="carousel-control-prev" href="#carouselMiniTitulares" role="button" data-slide="prev">
+          <span class="carousel-control-prev-icon " aria-hidden="true"></span>
+        </a>
+        <a class="carousel-control-next" href="#carouselMiniTitulares" role="button" data-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        </a>
+      </div>
+    </div>
+    <div class="container">
+      <!-- barra de busqueda -->
+      <div class="row mt-4 justify-content-center">
+        <div class="col-8">
+          <div class="input-group input-container">
+            <input type="search" class="form-control rounded-search" placeholder="Buscar" aria-label="Buscar">
+            <div class="input-group-append">
+              <button class="btn btn-buscar" type="button">
+                <img src="{% static 'images/logo.png' %}" alt="" class="img-ico">
+                <i class="fas fa-search"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Noticias -->
+
+      <div class="row mt-2 first-row " id="noticias-row">
+        <!--noticia grande-->
+        <div class="col-lg-6">
+          <a href="noticia" class="card-link">
+            <div class="card mb-4 card-news custom-card" style="background-image: url('/static/images/benjalentes.png');"
+            >
+              <div class="card-body custom-card-body">
+                <h5 class="card-title custom-card-title">Alumno Abandona Partida de Catán para Comerse un Completo </h5>
+              </div>
+            </div>
+          </a>
+        </div>
+
+        <!-- noticias al lado de la noticia grande -->
+        <div class="col-lg-3 mx-0">
+          <a href="#" class="card-link">
+            <div class="card mb-4 card-news">
+              <img src="./images/frieren.png" class="card-img-top n-img" alt="Frieren">
+              <div class="card-body">
+                <h5 class="card-title">Frieren: El manga de fantasía que cautiva a miles de lectores</h5>
+              </div>
+            </div>
+          </a>
+        </div>
+
+        <div class="col-lg-3 mx-0">
+          <a href="#" class="card-link">
+            <div class="card mb-4 card-news">
+              <img src="./images/nichijou.jpg" class="card-img-top n-img" alt="...">
+              <div class="card-body">
+                <h5 class="card-title">Nichijou: Una comedia japonesa que te hará reír sin parar</h5>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+
+
+      <!-- Noticias -->
+      <div class="row mt-2" id="noticias-row">
+
+        <!-- Noticia 1 -->
+        <div class="col-lg-3">
+          <a href="#" class="card-link">
+            <div class="card mb-4 card-news">
+              <img src="./images/boric.jpg" class="card-img-top n-img " alt="...">
+              <div class="card-body">
+                <h5 class="card-title">Boric enfrenta cargos penales por contrabando de drogas</h5>
+              </div>
+            </div>
+          </a>
+        </div>
+
+        <!-- Noticia 2 -->
+        <div class="col-lg-3">
+          <a href="#" class="card-link ">
+            <div class="card mb-4 card-news">
+              <img src="./images/vegetta.jpg" class="card-img-top n-img " alt="...">
+              <div class="card-body">
+                <h5 class="card-title">Famoso Streamer Vegetta777 es demandado luego de asesinar a un oso protegido por la ley</h5>
+              </div>
+            </div>
+          </a>
+        </div>
+
+        <!-- Noticia 3 -->
+        <div class="col-lg-3">
+          <a href="#" class="card-link">
+            <div class="card mb-4 card-news">
+              <img src="./images/benjadescuido.jpg" class="card-img-top n-img" alt="Frieren">
+              <div class="card-body">
+                <h5 class="card-title">Alumno descuidado de Duoc sufre una terrible caída en toro mecánico</h5>
+              </div>
+            </div>
+          </a>
+        </div>
+
+        <!-- Noticia 4 -->
+        <div class="col-lg-3">
+          <a href="#" class="card-link">
+            <div class="card mb-4 card-news">
+              <img src="./images/chatgpt.jpg" class="card-img-top n-img" alt="...">
+              <div class="card-body">
+                <h5 class="card-title">ChatGPT amenaza con quitarle el trabajo a los desarrolladores web</h5>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+
+
+      <!-- Noticias -->
+      <div class="row mt-2" id="noticias-row">
+
+        <!-- Noticia 1 -->
+        <div class="col-lg-3">
+          <a href="#" class="card-link">
+            <div class="card mb-4 card-news">
+              <img src="./images/taiwan.jpg" class="card-img-top n-img " alt="...">
+              <div class="card-body">
+                <h5 class="card-title">SHOA descarta tsunami en costas de Chile tras terremoto 7,4 en Taiwán</h5>
+              </div>
+            </div>
+          </a>
+        </div>
+
+        <!-- Noticia 2 -->
+        <div class="col-lg-3">
+          <a href="#" class="card-link">
+            <div class="card mb-4 card-news">
+              <img src="./images/bobesponja.jpg" class="card-img-top n-img " alt="...">
+              <div class="card-body">
+                <h5 class="card-title">Russia declara la guerra a EEUU y amenaza con un ataque núclear a gran escala</h5>
+              </div>
+            </div>
+          </a>
+        </div>
+
+        <!-- Noticia 3 -->
+        <div class="col-lg-3">
+          <a href="#" class="card-link">
+            <div class="card mb-4 card-news">
+              <img src="./images/semaforo.png" class="card-img-top n-img" alt="Frieren">
+              <div class="card-body">
+                <h5 class="card-title">Alumnos molestos por sémaforo enfrente de Duoc UC</h5>
+              </div>
+            </div>
+          </a>
+        </div>
+
+        <!-- Noticia 4 -->
+        <div class="col-lg-3">
+          <a href="#" class="card-link">
+            <div class="card mb-4 card-news">
+              <img src="./images/puduwatonnichijou.png" class="card-img-top n-img" alt="...">
+              <div class="card-body">
+                <h5 class="card-title">pudú waton <br>ta waton<br><br></h5>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <!-- Noticias -->
+      <div class="row mt-2 first-row " id="noticias-row">
+  
+        <div class="col-lg-3 mx-0">
+          <a href="#" class="card-link">
+            <div class="card mb-4 card-news">
+              <img src="./images/frieren.png" class="card-img-top n-img" alt="Frieren">
+              <div class="card-body">
+                <h5 class="card-title">Frieren: El manga de fantasía que cautiva a miles de lectores</h5>
+              </div>
+            </div>
+          </a>
+        </div>
+
+        <div class="col-lg-3 mx-0">
+          <a href="#" class="card-link">
+            <div class="card mb-4 card-news">
+              <img src="./images/nichijou.jpg" class="card-img-top n-img" alt="...">
+              <div class="card-body">
+                <h5 class="card-title">Nichijou: Una comedia japonesa que te hará reír sin parar</h5>
+              </div>
+            </div>
+          </a>
+        </div>
+
+
+        <!-- Noticia grande -->
+        <div class="col-lg-6">
+          <a href="#" class="card-link">
+            <div class="card mb-4 card-news custom-card" style="background-image: url('./images/gatos.jpg');">
+              <div class="card-body custom-card-body">
+                <h5 class="card-title custom-card-title">Diversas fuentes indican una invasión gatuna en oriente medio </h5>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+
+
+      <!-- Noticias -->
+      <div class="row mt-2" id="noticias-row">
+
+        <!-- Noticia 1 -->
+        <div class="col-lg-3">
+          <a href="#" class="card-link">
+            <div class="card mb-4 card-news">
+              <img src="./images/gatosinvade.jpg" class="card-img-top n-img " alt="...">
+              <div class="card-body">
+                <h5 class="card-title">¡Crisis gatuna en Oriente Medio! Felinos invaden las calles</h5>
+              </div>
+            </div>
+          </a>
+        </div>
+
+        <!-- Noticia 2 -->
+        <div class="col-lg-3">
+          <a href="#" class="card-link">
+            <div class="card mb-4 card-news">
+              <img src="./images/vegetta.jpg" class="card-img-top n-img " alt="...">
+              <div class="card-body">
+                <h5 class="card-title">Famoso Streamer Vegetta777 es demandado luego de asesinar a un oso protegido por la ley</h5>
+              </div>
+            </div>
+          </a>
+        </div>
+
+        <!-- Noticia 3 -->
+        <div class="col-lg-3">
+          <a href="#" class="card-link">
+            <div class="card mb-4 card-news">
+              <img src="./images/benjadescuido.jpg" class="card-img-top n-img" alt="Frieren">
+              <div class="card-body">
+                <h5 class="card-title">Alumno descuidado de Duoc sufre una terrible caída en toro mecánico</h5>
+              </div>
+            </div>
+          </a>
+        </div>
+
+        <!-- Noticia 4 -->
+        <div class="col-lg-3">
+          <a href="#" class="card-link">
+            <div class="card mb-4 card-news">
+              <img src="./images/catgpt.jpg" class="card-img-top n-img" alt="...">
+              <div class="card-body">
+                <h5 class="card-title">CatGPT amenaza con quitarle la comida a los perros</h5>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <!-- botón para volver arriba -->
+      <button id="volverArribaBtn" class="btn button volver-arriba-btn" onclick="scrollToTop()">
+        <img src="./images/backarrow.png" alt="" class="volver-arriba-img">
+      </button>
+
+      <hr class="hrxd">
+    </div>
+
+    <footer class="footer mt-auto py-3">
+      
+      <div class="container text-center">
+        <span class="text-muted">© 2024 Chaos News. Todos los derechos reservados.</span>
+      </div>
+    </footer>
+    
+    <!-- Modal de contacto -->
+
+    <div id="contactoModal" class="modal fade" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content dark-mode-bg"> <!-- Añade la clase dark-mode-bg al modal -->
+          <div class="modal-header">
+            <h5 class="modal-title">Contáctanos</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <h1 class="text-center">Contáctanos</h1>
+            <p class="text-center">¡Estamos aquí para ayudarte! Completa el siguiente formulario y nos pondremos en contacto contigo lo antes posible.</p>
+
+            <form action="enviar.php" method="post">
+              <div class="form-group mt-5">
+                <input type="text" class="form-control form-control-sm" id="nombre" name="nombre" placeholder="Nombre" required>
+              </div>
+              <div class="form-group">
+                <input type="email" class="form-control form-control-sm" id="email" name="email" placeholder="Correo electrónico" required>
+              </div>
+              <div class="form-group">
+                <textarea class="form-control form-control-sm" id="mensaje" name="mensaje" rows="5" placeholder="Mensaje" required></textarea>
+              </div>
+              <div class="text-center">
+                <button type="submit" class="btn btn-primary">Enviar mensaje</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- scripts de bootstrap -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
+
+</body>
+</html>

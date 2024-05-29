@@ -1,0 +1,114 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chaos News - Quiénes somos</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
+
+  <script src="{% static 'script.js' %}"></script>
+</head>
+
+<body class="light-mode">
+<!-- navbar que se colapsapara  que sea reponsive-->
+<nav class="navbar navbar-expand-lg navbar ">
+  <a class="navbar-brand" href="index"> <img class="logo" src="{% static 'images/Chaos News-logo.png' %}" alt=""></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav m-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="quienes-somos"><img src="{% static 'images/about-us-icon.png' %}" class="icon about-us-icon" alt=""> Quiénes somos</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="FAQ"><img src="{% static 'images/FAQ-icon.png' %}"  class="icon faq-icon" alt=""> FAQ</a>
+      </li>
+      
+      <li class="nav-item">
+        <a class="nav-link" id="contacto" data-toggle="modal" data-target="#contactoModal"><img src="{% static 'images/contact-us-icon.png' %}" class="icon contact-us-icon" alt=""> Contactános</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="loginBtn" href="login"><img src="{% static 'images/login-icon.png' %}" class="icon login-icon" alt=""> Inicio de sesión</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="modoBtn" href="#"><img src="{% static 'images/dark-theme-icon.png' %}" class="icon dark-mode-icon" alt=""> Cambiar de Modo</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+
+  <div class="jumbotron jumbotron-fluid jumbo-about-us">
+    <div class="container">
+      <h1 class="display-4">Quiénes somos</h1>
+      <p class="lead">Chaos News es un colectivo de noticias formado por jóvenes estudiantes de periodismo y comunicación audiovisual. Nuestro objetivo es ofrecer una mirada fresca y joven a las noticias que acontecen en Chile y el mundo, alejándonos de los medios tradicionales.</p>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <h2 class="mb-3">Más sobre nosotros</h2>
+        <p class="text-justify">Cada miembro del colectivo aporta su experiencia y compromiso para brindar información veraz y relevante. Nos dedicamos a cubrir una amplia gama de temas, desde política y economía hasta cultura y entretenimiento, siempre con un enfoque innovador y dinámico.</p>
+        <p class="text-justify">En Chaos News, valoramos la calidad y la profesionalidad en nuestro trabajo. Buscamos desarrollar una plataforma en línea que facilite el proceso de reportaje, edición y publicación de noticias, ofreciendo a nuestros usuarios una experiencia amigable y bien construida.</p>
+      </div>
+      <div class="col-md-6">
+        <img class="img-fluid img-about-us" src="./images/news.webp" alt="Imagen derecha">
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal de contacto -->
+
+<div id="contactoModal" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content dark-mode-bg"> <!-- Añade la clase dark-mode-bg al modal -->
+      <div class="modal-header">
+        <h5 class="modal-title">Contáctanos</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <h1 class="text-center">Contáctanos</h1>
+        <p class="text-center">¡Estamos aquí para ayudarte! Completa el siguiente formulario y nos pondremos en contacto contigo lo antes posible.</p>
+
+        <form action="enviar.php" method="post">
+          <div class="form-group mt-5">
+            <input type="text" class="form-control form-control-sm" id="nombre" name="nombre" placeholder="Nombre" required>
+          </div>
+          <div class="form-group">
+            <input type="email" class="form-control form-control-sm" id="email" name="email" placeholder="Correo electrónico" required>
+          </div>
+          <div class="form-group">
+            <textarea class="form-control form-control-sm" id="mensaje" name="mensaje" rows="5" placeholder="Mensaje" required></textarea>
+          </div>
+          <div class="text-center">
+            <button type="submit" class="btn btn-primary">Enviar mensaje</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  <footer class="footer mt-auto py-3">
+      
+    <div class="container text-center">
+        <hr class="hrxd">
+      <span class="text-muted">© 2024 Chaos News. Todos los derechos reservados.</span>
+    </div>
+  </footer>
+
+  <!-- scripts de bootstrap -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>

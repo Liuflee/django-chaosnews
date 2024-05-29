@@ -1,0 +1,163 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Detalle de Noticia - Chaos News</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
+
+  <!-- script para cambiar modo -->
+  <script src="{% static 'script.js' %}"></script>
+</head>
+
+<body class="light-mode"> <!-- clase para el modo oscuro -->
+
+<!-- Navbar -->
+<!-- navbar que se colapsapara  que sea reponsive-->
+<!-- navbar que se colapsapara  que sea reponsive-->
+<nav class="navbar navbar-expand-lg navbar ">
+  <a class="navbar-brand" href="index"> <img class="logo" src="{% static 'images/Chaos News-logo.png' %}" alt=""></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav m-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="quienes-somos"><img src="{% static 'images/about-us-icon.png' %}" class="icon about-us-icon" alt=""> Quiénes somos</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="FAQ"><img src="{% static 'images/FAQ-icon.png' %}"  class="icon faq-icon" alt=""> FAQ</a>
+      </li>
+      
+      <li class="nav-item">
+        <a class="nav-link" id="contacto" data-toggle="modal" data-target="#contactoModal"><img src="{% static 'images/contact-us-icon.png' %}" class="icon contact-us-icon" alt=""> Contactános</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="loginBtn" href="login"><img src="{% static 'images/login-icon.png' %}" class="icon login-icon" alt=""> Inicio de sesión</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="modoBtn" href="#"><img src="{% static 'images/dark-theme-icon.png' %}" class="icon dark-mode-icon" alt=""> Cambiar de Modo</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+ 
+
+<hr  class="hrxd">
+<!-- Contenido de la noticia en detalle -->
+<div class="container mt-4">
+  <div class="row justify-content-left">
+    <div class="col-lg-8">
+      <!-- Título de la noticia -->
+      <h2 class="mb-4 title-text"> Escándalo en DuocUC: Alumno Abandona Partida de Catán para Comerse un Completo</h2>
+      <p>Historia de Anette Villalón</p>
+      <!-- Imagen de la noticia -->
+      <hr class="hrxd">
+      <div class="text-right mb-4">
+        <img src="./images/benjalentes.png" class="img-fluid" alt="Alumno deja a sus amigos botados sin jugar catán, y se come un completo">
+      </div>
+      
+      <!-- Etiquetas de categoría -->
+      <div class="mb-3">
+        <span class="badge badge-primary">Entretenimiento</span>
+        <span class="badge badge-secondary">Curiosidades</span>
+      </div>
+      <!-- Contenido de la noticia -->
+      <p class="lead">El ambiente bullicioso del punto estudiantil de DuocUC en Viña del Mar se vio interrumpido por un evento que dejaría perplejos a los estudiantes presentes. Benjamín Camacho, un joven alumno conocido por su afición a los juegos de mesa, protagonizó un episodio que se volvería tema de conversación en todo el campus.</p>
+      <p class="lead">Todo comenzó cuando un grupo de amigos se reunió para disfrutar de una partida de Catán, un juego de estrategia que prometía horas de entretenimiento. Entre risas y camaradería, la partida avanzaba con normalidad hasta que Benjamín sorprendió a todos con una decisión inesperada: abandonar la partida para satisfacer su antojo de un completo.</p>
+      <p class="lead">La noticia se propagó rápidamente entre los presentes, generando una mezcla de incredulidad y asombro. ¿Cómo podía un jugador tan dedicado interrumpir una partida en su momento más emocionante por un simple sándwich?</p>
+      <p class="lead">Benjamín, sin embargo, parecía imperturbable ante las miradas de sorpresa y las protestas de sus amigos. Con una sonrisa en el rostro y el estómago rugiendo de hambre, se levantó de la mesa y se encaminó decididamente hacia la cafetería del campus en busca de su ansiado manjar.</p>
+      <p class="lead">Mientras tanto, sus amigos intentaban comprender la situación, debatiendo entre la indignación y la hilaridad. Algunos lo acusaban de traición, mientras que otros no podían contener la risa ante la inesperada escena.</p>
+    <p class="lead">Finalmente, Benjamín regresó triunfante con su completo en mano, dispuesto a retomar la partida como si nada hubiera pasado. Sin embargo, el juego ya había terminado.</p>
+
+        <!-- Línea divisoria vertical -->
+    
+
+    </div>
+
+     <!-- Cuadro de otras noticias -->
+     <div class="col-lg-4">
+        <div class="other-news">
+            <h6>Noticias relacionadas</h6>
+            <div class="other-news-insidediv">
+                <a href="#">Noticia 1</a>
+                <hr class="hrxd">
+                <a href="#">Noticia 2</a>
+            </div>
+        </div>
+
+      </div>
+
+  </div>
+</div>
+
+<!-- Botón para volver arriba -->
+<button id="volverArribaBtn" class="btn button volver-arriba-btn" onclick="scrollToTop()">
+  <img src="./images/backarrow.png" alt="" class="volver-arriba-img">
+</button>
+
+<!-- Modal de contacto -->
+
+<div id="contactoModal" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content dark-mode-bg"> <!-- Añade la clase dark-mode-bg al modal -->
+      <div class="modal-header">
+        <h5 class="modal-title">Contáctanos</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <h1 class="text-center">Contáctanos</h1>
+        <p class="text-center">¡Estamos aquí para ayudarte! Completa el siguiente formulario y nos pondremos en contacto contigo lo antes posible.</p>
+
+        <form action="enviar.php" method="post">
+          <div class="form-group mt-5">
+            <input type="text" class="form-control form-control-sm" id="nombre" name="nombre" placeholder="Nombre" required>
+          </div>
+          <div class="form-group">
+            <input type="email" class="form-control form-control-sm" id="email" name="email" placeholder="Correo electrónico" required>
+          </div>
+          <div class="form-group">
+            <textarea class="form-control form-control-sm" id="mensaje" name="mensaje" rows="5" placeholder="Mensaje" required></textarea>
+          </div>
+          <div class="text-center">
+            <button type="submit" class="btn btn-primary">Enviar mensaje</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer class="footer mt-auto py-3">
+      
+    <div class="container">
+        <hr class="hrxd">
+      <span class="text-muted">© 2024 Chaos News. Todos los derechos reservados.</span>
+    </div>
+  </footer>
+
+<!-- Scripts de Bootstrap y otros -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>}
+<script>
+  function stickyOtherNews() {
+  var otherNews = document.querySelector('.other-news');
+  var otherNewsOffset = otherNews.offsetTop;
+    if (window.scrollY > otherNewsOffset) {
+        otherNews.classList.add('sticky');
+    } else {
+        otherNews.classList.remove('sticky');
+    }
+}
+
+  // Agregar un event listener para detectar el desplazamiento de la página
+  window.addEventListener('scroll', stickyOtherNews);
+
+</script>
+
+</body>
+</html>
