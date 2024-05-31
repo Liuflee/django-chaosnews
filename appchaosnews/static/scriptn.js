@@ -27,13 +27,12 @@ function scrollToTop() {
 
 // mostrar u ocultar el botón de volver arriba según la posición del usuario en la página
 window.addEventListener("scroll", function() {
-  let volverArribaBtn = document.getElementById("volverArribaBtn");
-
-  if (window.scrollY > 400) {
-      volverArribaBtn.style.display = "block"; // mostrar el botón cuando el usuario se haya movido 400px hacia abajo
-      
+  var volverArribaBtn = document.getElementById("volverArribaBtn");
+  
+  if (window.scrollY > 300) {
+    volverArribaBtn.classList.add("mostrar"); // Agregar la clase para mostrar el botón cuando el usuario haya desplazado 300px hacia abajo
   } else {
-      volverArribaBtn.style.display = "none"; // ocultar el botón si el usuario está en la parte de arriba de la página
+    volverArribaBtn.classList.remove("mostrar"); // Remover la clase para ocultar el botón si el usuario está en la parte superior de la página
   }
 });
 

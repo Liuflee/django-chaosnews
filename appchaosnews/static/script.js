@@ -29,6 +29,13 @@ function scrollToTop() {
 window.addEventListener("scroll", function() {
   var volverArribaBtn = document.getElementById("volverArribaBtn");
 
+  // si la pagina se recarga el boton no se muestra
+
+
+
+
+  // si el usuario se m
+  
   if (window.scrollY > 300) {
       volverArribaBtn.style.display = "block"; // Mostrar el botón cuando el usuario haya desplazado 300px hacia abajo
       

@@ -188,6 +188,7 @@ body.dark-mode {
 
 .volver-arriba-btn {
     position: fixed;
+    display: none;
     bottom: 20px;
     right: 20px;
     border-radius: 20px;
