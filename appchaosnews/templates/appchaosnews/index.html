@@ -96,241 +96,38 @@
         </div>
       </div>
 
-      <!-- Noticias -->
 
-      <div class="row mt-2 first-row " id="noticias-row">
-        <!--noticia grande-->
-        <div class="col-lg-6">
-          <a href="noticia" class="card-link">
-            <div class="card mb-4 card-news custom-card" style="background-image: url('/static/images/benjalentes.png');"
-            >
-              <div class="card-body custom-card-body">
-                <h5 class="card-title custom-card-title">Alumno Abandona Partida de Catán para Comerse un Completo </h5>
-              </div>
-            </div>
-          </a>
+      <div class="container">
+        <div class="row mt-2">
+            {% for noticia in noticias %}
+                {% if forloop.counter0|divisibleby:9 %} 
+                    <div class="col-lg-6">
+                        <a href="#" class="card-link">
+                            <div class="card mb-4 card-news custom-card" style="background-image: url('{{ noticia.imagen.url }}');">
+                                <div class="card-body custom-card-body">
+                                    <h5 class="card-title custom-card-title">{{ noticia.titulo }}</h5>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                {% else %}
+                    <div class="col-lg-3 mx-0">
+                        <a href="#" class="card-link">
+                            <div class="card mb-4 card-news">
+                                <img src="{{ noticia.imagen.url }}" class="card-img-top n-img" alt="{{ noticia.titulo }}">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ noticia.titulo }}</h5>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                {% endif %}
+            {% endfor %}
         </div>
-
-        <!-- noticias al lado de la noticia grande -->
-        <div class="col-lg-3 mx-0">
-          <a href="#" class="card-link">
-            <div class="card mb-4 card-news">
-              <img src="./images/frieren.png" class="card-img-top n-img" alt="Frieren">
-              <div class="card-body">
-                <h5 class="card-title">Frieren: El manga de fantasía que cautiva a miles de lectores</h5>
-              </div>
-            </div>
-          </a>
-        </div>
-
-        <div class="col-lg-3 mx-0">
-          <a href="#" class="card-link">
-            <div class="card mb-4 card-news">
-              <img src="./images/nichijou.jpg" class="card-img-top n-img" alt="...">
-              <div class="card-body">
-                <h5 class="card-title">Nichijou: Una comedia japonesa que te hará reír sin parar</h5>
-              </div>
-            </div>
-          </a>
-        </div>
-      </div>
-
-
-      <!-- Noticias -->
-      <div class="row mt-2" id="noticias-row">
-
-        <!-- Noticia 1 -->
-        <div class="col-lg-3">
-          <a href="#" class="card-link">
-            <div class="card mb-4 card-news">
-              <img src="./images/boric.jpg" class="card-img-top n-img " alt="...">
-              <div class="card-body">
-                <h5 class="card-title">Boric enfrenta cargos penales por contrabando de drogas</h5>
-              </div>
-            </div>
-          </a>
-        </div>
-
-        <!-- Noticia 2 -->
-        <div class="col-lg-3">
-          <a href="#" class="card-link ">
-            <div class="card mb-4 card-news">
-              <img src="./images/vegetta.jpg" class="card-img-top n-img " alt="...">
-              <div class="card-body">
-                <h5 class="card-title">Famoso Streamer Vegetta777 es demandado luego de asesinar a un oso protegido por la ley</h5>
-              </div>
-            </div>
-          </a>
-        </div>
-
-        <!-- Noticia 3 -->
-        <div class="col-lg-3">
-          <a href="#" class="card-link">
-            <div class="card mb-4 card-news">
-              <img src="./images/benjadescuido.jpg" class="card-img-top n-img" alt="Frieren">
-              <div class="card-body">
-                <h5 class="card-title">Alumno descuidado de Duoc sufre una terrible caída en toro mecánico</h5>
-              </div>
-            </div>
-          </a>
-        </div>
-
-        <!-- Noticia 4 -->
-        <div class="col-lg-3">
-          <a href="#" class="card-link">
-            <div class="card mb-4 card-news">
-              <img src="./images/chatgpt.jpg" class="card-img-top n-img" alt="...">
-              <div class="card-body">
-                <h5 class="card-title">ChatGPT amenaza con quitarle el trabajo a los desarrolladores web</h5>
-              </div>
-            </div>
-          </a>
-        </div>
-      </div>
-
-
-      <!-- Noticias -->
-      <div class="row mt-2" id="noticias-row">
-
-        <!-- Noticia 1 -->
-        <div class="col-lg-3">
-          <a href="#" class="card-link">
-            <div class="card mb-4 card-news">
-              <img src="./images/taiwan.jpg" class="card-img-top n-img " alt="...">
-              <div class="card-body">
-                <h5 class="card-title">SHOA descarta tsunami en costas de Chile tras terremoto 7,4 en Taiwán</h5>
-              </div>
-            </div>
-          </a>
-        </div>
-
-        <!-- Noticia 2 -->
-        <div class="col-lg-3">
-          <a href="#" class="card-link">
-            <div class="card mb-4 card-news">
-              <img src="./images/bobesponja.jpg" class="card-img-top n-img " alt="...">
-              <div class="card-body">
-                <h5 class="card-title">Russia declara la guerra a EEUU y amenaza con un ataque núclear a gran escala</h5>
-              </div>
-            </div>
-          </a>
-        </div>
-
-        <!-- Noticia 3 -->
-        <div class="col-lg-3">
-          <a href="#" class="card-link">
-            <div class="card mb-4 card-news">
-              <img src="./images/semaforo.png" class="card-img-top n-img" alt="Frieren">
-              <div class="card-body">
-                <h5 class="card-title">Alumnos molestos por sémaforo enfrente de Duoc UC</h5>
-              </div>
-            </div>
-          </a>
-        </div>
-
-        <!-- Noticia 4 -->
-        <div class="col-lg-3">
-          <a href="#" class="card-link">
-            <div class="card mb-4 card-news">
-              <img src="./images/puduwatonnichijou.png" class="card-img-top n-img" alt="...">
-              <div class="card-body">
-                <h5 class="card-title">pudú waton <br>ta waton<br><br></h5>
-              </div>
-            </div>
-          </a>
-        </div>
-      </div>
-
-      <!-- Noticias -->
-      <div class="row mt-2 first-row " id="noticias-row">
+    </div>
+    
+    
   
-        <div class="col-lg-3 mx-0">
-          <a href="#" class="card-link">
-            <div class="card mb-4 card-news">
-              <img src="./images/frieren.png" class="card-img-top n-img" alt="Frieren">
-              <div class="card-body">
-                <h5 class="card-title">Frieren: El manga de fantasía que cautiva a miles de lectores</h5>
-              </div>
-            </div>
-          </a>
-        </div>
-
-        <div class="col-lg-3 mx-0">
-          <a href="#" class="card-link">
-            <div class="card mb-4 card-news">
-              <img src="./images/nichijou.jpg" class="card-img-top n-img" alt="...">
-              <div class="card-body">
-                <h5 class="card-title">Nichijou: Una comedia japonesa que te hará reír sin parar</h5>
-              </div>
-            </div>
-          </a>
-        </div>
-
-
-        <!-- Noticia grande -->
-        <div class="col-lg-6">
-          <a href="#" class="card-link">
-            <div class="card mb-4 card-news custom-card" style="background-image: url('./images/gatos.jpg');">
-              <div class="card-body custom-card-body">
-                <h5 class="card-title custom-card-title">Diversas fuentes indican una invasión gatuna en oriente medio </h5>
-              </div>
-            </div>
-          </a>
-        </div>
-      </div>
-
-
-      <!-- Noticias -->
-      <div class="row mt-2" id="noticias-row">
-
-        <!-- Noticia 1 -->
-        <div class="col-lg-3">
-          <a href="#" class="card-link">
-            <div class="card mb-4 card-news">
-              <img src="./images/gatosinvade.jpg" class="card-img-top n-img " alt="...">
-              <div class="card-body">
-                <h5 class="card-title">¡Crisis gatuna en Oriente Medio! Felinos invaden las calles</h5>
-              </div>
-            </div>
-          </a>
-        </div>
-
-        <!-- Noticia 2 -->
-        <div class="col-lg-3">
-          <a href="#" class="card-link">
-            <div class="card mb-4 card-news">
-              <img src="./images/vegetta.jpg" class="card-img-top n-img " alt="...">
-              <div class="card-body">
-                <h5 class="card-title">Famoso Streamer Vegetta777 es demandado luego de asesinar a un oso protegido por la ley</h5>
-              </div>
-            </div>
-          </a>
-        </div>
-
-        <!-- Noticia 3 -->
-        <div class="col-lg-3">
-          <a href="#" class="card-link">
-            <div class="card mb-4 card-news">
-              <img src="./images/benjadescuido.jpg" class="card-img-top n-img" alt="Frieren">
-              <div class="card-body">
-                <h5 class="card-title">Alumno descuidado de Duoc sufre una terrible caída en toro mecánico</h5>
-              </div>
-            </div>
-          </a>
-        </div>
-
-        <!-- Noticia 4 -->
-        <div class="col-lg-3">
-          <a href="#" class="card-link">
-            <div class="card mb-4 card-news">
-              <img src="./images/catgpt.jpg" class="card-img-top n-img" alt="...">
-              <div class="card-body">
-                <h5 class="card-title">CatGPT amenaza con quitarle la comida a los perros</h5>
-              </div>
-            </div>
-          </a>
-        </div>
-      </div>
 
       <!-- botón para volver arriba -->
       <button id="volverArribaBtn" class="btn button volver-arriba-btn" onclick="scrollToTop()">

@@ -96,6 +96,8 @@ body {
     -webkit-line-clamp: 3;
     font-weight: bold;
     overflow: hidden;
+    height: 3.6em;
+    
 }
 
 body.dark-mode {

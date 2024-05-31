@@ -1,9 +1,11 @@
 from django.shortcuts import render
-
-# Create your views here.
+from django.core.paginator import Paginator
+from .models import Noticia
 
 def index(request):
-    context = {}
+    noticias = Noticia.objects.all().order_by('-fecha_subida')
+    
+    context = {'noticias': noticias}
     return render(request, 'appchaosnews/index.html', context)
 
 def FAQ(request):
@@ -21,3 +23,5 @@ def quienes_somos(request):
 def noticia(request):
     context = {}
     return render(request, 'appchaosnews/noticia.html', context)
+
+
