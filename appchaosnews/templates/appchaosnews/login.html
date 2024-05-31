@@ -1,154 +1,147 @@
+<!-- templates/appchaosnews/login.html -->
 {% load static %}
-
 <!DOCTYPE html>
 <html lang="es">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Chaos News</title>
-  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chaos News</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
 
-  <!-- script para cambiar modo -->
-  <script src="{% static 'script.js' %}"></script>
+    <!-- script para cambiar modo -->
+    <script src="{% static 'script.js' %}"></script>
 
-  <script>
-    function validarFormulario() {
-      var email_l = document.getElementById('email_l').value;
-      var password_l  = document.getElementById('password_l').value;
-
-      if (email_l.trim() === '' || password_l.trim() === '') {
-        alert('Por favor, complete todos los campos.');
-        return false;
-      }
-
-      var emailFormat = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailFormat.test(email_l)) {
-        alert('Por favor, introduzca un correo electrónico válido.');
-        return false;
-      }
-
-          // Verificar si el correo electrónico es de "@chaosnews.cl"
-      if (!email_l.endsWith('@chaosnews.cl')) {
-        alert('Por favor, utilice un correo electrónico de "@chaosnews.cl".');
-        return false;
-      }
-
-      if (password_l.length < 6) {
-        alert('La contraseña debe tener al menos 6 caracteres.');
-        return false;
-      }
-
-      return true;
-    }
-  </script>
 
 </head>
 
-<body class="light-mode"> <!-- clase para el modo oscuro -->
+<body class="light-mode">
 
-  <!-- nav con boton para cambiar de modo-->
-<!-- navbar que se colapsapara  que sea reponsive-->
-<!-- navbar que se colapsapara  que sea reponsive-->
-<nav class="navbar navbar-expand-lg navbar">
-  <a class="navbar-brand" href="{% url 'index' %}"> <img class="logo" src="{% static 'images/Chaos News-logo.png' %}" alt=""></a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+    <nav class="navbar navbar-expand-lg navbar">
+        <a class="navbar-brand" href="{% url 'index' %}">
+            <img class="logo" src="{% static 'images/Chaos News-logo.png' %}" alt="">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav m-auto">
-      <li class="nav-item">
-        <a class="nav-link" href="{% url 'quienes_somos' %}"><img src="{% static 'images/about-us-icon.png' %}" class="icon about-us-icon" alt=""> Quiénes somos</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{% url 'FAQ' %}"><img src="{% static 'images/FAQ-icon.png' %}"  class="icon faq-icon" alt=""> FAQ</a>
-      </li>
-      
-      <li class="nav-item">
-        <a class="nav-link" id="contacto" data-toggle="modal" data-target="#contactoModal"><img src="{% static 'images/contact-us-icon.png' %}" class="icon contact-us-icon" alt=""> Contáctanos</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" id="loginBtn" href="{% url 'login' %}"><img src="{% static 'images/login-icon.png' %}" class="icon login-icon" alt=""> Inicio de sesión</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" id="modoBtn" href="#"><img src="{% static 'images/dark-theme-icon.png' %}" class="icon dark-mode-icon" alt=""> Cambiar de Modo</a>
-      </li>
-    </ul>
-  </div>
-</nav>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav m-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'quienes_somos' %}">
+                        <img src="{% static 'images/about-us-icon.png' %}" class="icon about-us-icon" alt=""> Quiénes somos
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'FAQ' %}">
+                        <img src="{% static 'images/FAQ-icon.png' %}" class="icon faq-icon" alt=""> FAQ
+                    </a>
+                </li>
 
+                <li class="nav-item">
+                    <a class="nav-link" id="contacto" data-toggle="modal" data-target="#contactoModal">
+                        <img src="{% static 'images/contact-us-icon.png' %}" class="icon contact-us-icon" alt=""> Contáctanos
+                    </a>
+                </li>
+                {% if user.is_authenticated %}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="accountDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        {{ user.username }}
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="accountDropdown">
+                        <a class="dropdown-item" href="{% url 'subir_noticia' %}">Subir Noticia</a>
+                        <a class="dropdown-item" href="{% url 'logout' %}">Cerrar sesión</a>
+                    </div>
+                </li>
+                {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" id="loginBtn" href="{% url 'login' %}">
+                        <img src="{% static 'images/login-icon.png' %}" class="icon login-icon" alt=""> Iniciar sesión
+                    </a>
+                </li>
+                {% endif %}
+                <li class="nav-item">
+                    <a class="nav-link" id="modoBtn" href="#">
+                        <img src="{% static 'images/dark-theme-icon.png' %}" class="icon dark-mode-icon" alt=""> Cambiar de Modo
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
 
+    <hr class="hrxd">
 
-  <hr class="hrxd">
-
-  <!-- Login -->
-  <div class="container center-screen">
+    <!-- Login -->
+   <!-- Login -->
+   <div class="container center-screen">
     <div class="col-md-5 login-container">
-      <div class="card">
-        <div class="card-body">
-          <h2 class="card-title text-center mb-4">Iniciar sesión</h2>
-          <form onsubmit="return validarFormulario()">
-            <div class="form-group">
-              <label for="email">Correo electrónico</label>
-              <input type="email" class="form-control" id="email_l" placeholder="Ingrese su correo electrónico">
+        <div class="card">
+            <div class="card-body">
+                <h2 class="card-title text-center mb-4">Iniciar sesión</h2>
+                <form method="POST" action="{% url 'login' %}" onsubmit="return validarFormulario()">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="email">Correo electrónico</label>
+                        <input type="email" class="form-control" id="email_l" name="username" placeholder="Ingrese su correo electrónico">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Contraseña</label>
+                        <input type="password" class="form-control" id="password_l" name="password" placeholder="Ingrese su contraseña">
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary rounded-pill">Iniciar sesión</button>
+                    </div>
+                </form>
             </div>
-            <div class="form-group">
-              <label for="password">Contraseña</label>
-              <input type="password" class="form-control" id="password_l" placeholder="Ingrese su contraseña">
-            </div>
-            <div class="text-center"> <!-- Agregar esta clase para centrar el botón -->
-              <button type="submit" class="btn btn-primary rounded-pill">Iniciar sesión</button>
-            </div>
-          </form>
         </div>
-      </div>
     </div>
-  </div>
+</div>
 
-
-    
     <!-- Modal de contacto -->
-
     <div id="contactoModal" class="modal fade" tabindex="-1" role="dialog">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content dark-mode-bg"> <!-- Añade la clase dark-mode-bg al modal -->
-          <div class="modal-header">
-            <h5 class="modal-title">Contáctanos</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <h1 class="text-center">Contáctanos</h1>
-            <p class="text-center">¡Estamos aquí para ayudarte! Completa el siguiente formulario y nos pondremos en contacto contigo lo antes posible.</p>
-
-            <form action="enviar.php" method="post">
-              <div class="form-group mt-5">
-                <input type="text" class="form-control form-control-sm" id="nombre" name="nombre" placeholder="Nombre" required>
-              </div>
-              <div class="form-group">
-                <input type="email" class="form-control form-control-sm" id="email" name="email" placeholder="Correo electrónico" required>
-              </div>
-              <div class="form-group">
-                <textarea class="form-control form-control-sm" id="mensaje" name="mensaje" rows="5" placeholder="Mensaje" required></textarea>
-              </div>
-              <div class="text-center">
-                <button type="submit" class="btn btn-primary">Enviar mensaje</button>
-          </div>
+        <div class="modal-dialog" role="document">
+            <div class="modal-content dark-mode-bg">
+                <div class="modal-header">
+                    <h5 class="modal-title">Contáctanos</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h1 class="text-center">Contáctanos</h1>
+                    <p class="text-center">¡Estamos aquí para ayudarte! Completa el siguiente formulario y nos pondremos en contacto contigo lo antes posible.</p>
+                    <form action="enviar.php" method="post">
+                        <div class="form-group mt-5">
+                            <input type="text" class="form-control form-control-sm" id="nombre" name="nombre" placeholder="Nombre" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" class="form-control form-control-sm" id="email" name="email" placeholder="Correo electrónico" required>
+                        </div>
+                        <div class="form-group">
+                            <textarea class="form-control form-control-sm" id="mensaje" name="mensaje" rows="5" placeholder="Mensaje" required></textarea>
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary">Enviar mensaje</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
 
-  <footer class="footer mt-auto py-3 fixed-bottom">
-    <div class="container text-center">
-      <hr class="hrxd">
-      <span class="text-muted">© 2024 Chaos News. Todos los derechos reservados.</span>
-    </div>
-  </footer>
+    <footer class="footer mt-auto py-3 fixed-bottom">
+        <div class="container text-center">
+            <hr class="hrxd">
+            <span class="text-muted">© 2024 Chaos News. Todos los derechos reservados.</span>
+        </div>
+    </footer>
 
-  <!-- scripts de bootstrap -->
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- scripts de bootstrap -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>

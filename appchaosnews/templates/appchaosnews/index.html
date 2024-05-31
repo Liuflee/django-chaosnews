@@ -17,30 +17,55 @@
 <body class="light-mode"> <!-- esta clase sirve para cambiar el modo -->
 <!-- navbar que se colapsapara  que sea reponsive-->
 <nav class="navbar navbar-expand-lg navbar">
-  <a class="navbar-brand" href="{% url 'index' %}"> <img class="logo" src="{% static 'images/Chaos News-logo.png' %}" alt=""></a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
+  <a class="navbar-brand" href="{% url 'index' %}">
+      <img class="logo" src="{% static 'images/Chaos News-logo.png' %}" alt="">
+  </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
   </button>
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav m-auto">
-      <li class="nav-item">
-        <a class="nav-link" href="{% url 'quienes_somos' %}"><img src="{% static 'images/about-us-icon.png' %}" class="icon about-us-icon" alt=""> Quiénes somos</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{% url 'FAQ' %}"><img src="{% static 'images/FAQ-icon.png' %}"  class="icon faq-icon" alt=""> FAQ</a>
-      </li>
-      
-      <li class="nav-item">
-        <a class="nav-link" id="contacto" data-toggle="modal" data-target="#contactoModal"><img src="{% static 'images/contact-us-icon.png' %}" class="icon contact-us-icon" alt=""> Contáctanos</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" id="loginBtn" href="{% url 'login' %}"><img src="{% static 'images/login-icon.png' %}" class="icon login-icon" alt=""> Inicio de sesión</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" id="modoBtn" href="#"><img src="{% static 'images/dark-theme-icon.png' %}" class="icon dark-mode-icon" alt=""> Cambiar de Modo</a>
-      </li>
-    </ul>
+      <ul class="navbar-nav m-auto">
+          <li class="nav-item">
+              <a class="nav-link" href="{% url 'quienes_somos' %}">
+                  <img src="{% static 'images/about-us-icon.png' %}" class="icon about-us-icon" alt=""> Quiénes somos
+              </a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link" href="{% url 'FAQ' %}">
+                  <img src="{% static 'images/FAQ-icon.png' %}" class="icon faq-icon" alt=""> FAQ
+              </a>
+          </li>
+
+          <li class="nav-item">
+              <a class="nav-link" id="contacto" data-toggle="modal" data-target="#contactoModal">
+                  <img src="{% static 'images/contact-us-icon.png' %}" class="icon contact-us-icon" alt=""> Contáctanos
+              </a>
+          </li>
+          {% if user.is_authenticated %}
+          <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="accountDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  {{ user.username }}
+              </a>
+              <div class="dropdown-menu" aria-labelledby="accountDropdown">
+                  <a class="dropdown-item" href="{% url 'subir_noticia' %}">Subir Noticia</a>
+                  <a class="dropdown-item" href="{% url 'logout' %}">Cerrar sesión</a>
+              </div>
+          </li>
+          {% else %}
+          <li class="nav-item">
+              <a class="nav-link" id="loginBtn" href="{% url 'login' %}">
+                  <img src="{% static 'images/login-icon.png' %}" class="icon login-icon" alt=""> Iniciar sesión
+              </a>
+          </li>
+          {% endif %}
+          <li class="nav-item">
+              <a class="nav-link" id="modoBtn" href="#">
+                  <img src="{% static 'images/dark-theme-icon.png' %}" class="icon dark-mode-icon" alt=""> Cambiar de Modo
+              </a>
+          </li>
+      </ul>
   </div>
 </nav>
 

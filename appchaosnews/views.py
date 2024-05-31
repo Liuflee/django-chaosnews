@@ -1,8 +1,10 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import logout
 from django.core.paginator import Paginator
 from .models import Noticia
 from random import sample
-
+from .forms import NoticiaForm
 
 def index(request):
     noticias = Noticia.objects.all().order_by('-fecha_subida')
@@ -48,3 +50,20 @@ def detalle_noticia(request, noticia_id):
     }
     
     return render(request, 'appchaosnews/detalle_noticia.html', context)
+
+def logout_view(request):
+    logout(request)
+    return redirect('index')
+
+@login_required
+def subir_noticia(request):
+    if request.method == 'POST':
+        form = NoticiaForm(request.POST, request.FILES)
+        if form.is_valid():
+            noticia = form.save(commit=False)
+            noticia.autor = request.user
+            noticia.save()
+            return redirect('index')
+    else:
+        form = NoticiaForm()
+    return render(request, 'appchaosnews/subir_noticia.html', {'form': form})
