@@ -4,15 +4,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Subir Noticia - Chaos News</title>
+  <title>Editar Noticia - Chaos News</title>
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
   <script src="{% static 'script.js' %}"></script>
 </head>
 <body class="light-mode"> <!-- Asegúrate de tener la clase correcta para el modo oscuro -->
 
-<!-- navbar que se colapsa para que sea responsive -->
-
+<!-- Navbar que se colapsa para que sea responsive -->
 <nav class="navbar navbar-expand-lg navbar">
   <a class="navbar-brand" href="{% url 'index' %}">
       <img class="logo" src="{% static 'images/Chaos News-logo.png' %}" alt="">
@@ -34,13 +33,11 @@
                   <img src="{% static 'images/FAQ-icon.png' %}" class="icon faq-icon" alt=""> FAQ
               </a>
           </li>
-
           <li class="nav-item">
               <a class="nav-link" id="contacto" data-toggle="modal" data-target="#contactoModal">
                   <img src="{% static 'images/contact-us-icon.png' %}" class="icon contact-us-icon" alt=""> Contáctanos
               </a>
           </li>
-
           <li class="nav-item">
             <a class="nav-link" id="modoBtn" href="#">
                 <img src="{% static 'images/dark-theme-icon.png' %}" class="icon dark-mode-icon" alt=""> Cambiar de Modo
@@ -48,10 +45,9 @@
         </li>
           {% if user.is_authenticated %}
           <li class="nav-item dropdown">
-            
               <a class="nav-link dropdown-toggle" href="#" id="accountDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <img src="{% static 'images/login-icon.png' %}" class="icon login-icon" alt="">
-                  {{ user.first_name|add:" "|add:user.last_name }}
+                {{ user.first_name|add:" "|add:user.last_name }}
               </a>
               <div class="dropdown-menu" aria-labelledby="accountDropdown">
                   <a class="dropdown-item" href="{% url 'subir_noticia' %}">Subir Noticia</a>
@@ -65,7 +61,6 @@
               </a>
           </li>
           {% endif %}
-          
       </ul>
   </div>
 </nav>
@@ -74,7 +69,7 @@
   <div class="row justify-content-center">
     <div class="col-md-8">
       <div class="card shadow-lg p-4">
-        <h2 class="mb-4 text-center">Subir Noticia</h2>
+        <h2 class="mb-4 text-center">Editar Noticia</h2>
         <form method="post" enctype="multipart/form-data">
           {% csrf_token %}
           <div class="form-group">
@@ -100,8 +95,7 @@
               {{ form.en_carrusel }} ¿Incluir en el carrusel?
             </label>
           </div>
-
-          <button type="submit" class="btn btn-primary btn-block mt-3">Subir Noticia</button>
+          <button type="submit" class="btn btn-primary btn-block mt-3">Guardar Cambios</button>
         </form>
         {{ form.media }} <!-- Esto carga los archivos JavaScript y CSS necesarios para CKEditor -->
       </div>
@@ -109,10 +103,9 @@
   </div>
 </div>
 
-
 <div id="contactoModal" class="modal fade" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
-    <div class="modal-content dark-mode-bg"> <!-- Añade la clase dark-mode-bg al modal -->
+    <div class="modal-content dark-mode-bg">
       <div class="modal-header">
         <h5 class="modal-title">Contáctanos</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -122,7 +115,6 @@
       <div class="modal-body">
         <h1 class="text-center">Contáctanos</h1>
         <p class="text-center">¡Estamos aquí para ayudarte! Completa el siguiente formulario y nos pondremos en contacto contigo lo antes posible.</p>
-
         <form action="enviar.php" method="post">
           <div class="form-group mt-5">
             <input type="text" class="form-control form-control-sm" id="nombre" name="nombre" placeholder="Nombre" required>
@@ -142,12 +134,11 @@
   </div>
 </div>
 
-<!-- scripts de bootstrap -->
+<!-- Scripts de Bootstrap -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script>
-  // Asegúrate de que este script para cambiar de modo esté disponible
   function toggleModo() {
     let body = document.body;
     if (body.classList.contains('light-mode')) {
@@ -158,9 +149,6 @@
       body.classList.add('light-mode');
     }
   }
-
-
-  
 </script>
 </body>
 </html>

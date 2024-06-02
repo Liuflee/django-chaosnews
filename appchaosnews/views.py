@@ -5,11 +5,17 @@ from django.core.paginator import Paginator
 from .models import Noticia
 from random import sample
 from .forms import NoticiaForm
+from django.contrib import messages
+from django.urls import reverse
 
 def index(request):
-    noticias = Noticia.objects.all().order_by('-fecha_subida')
+    noticias = Noticia.objects.all().order_by('-fecha_subida').exclude(en_carrusel=True)
+    noticias_carrusel = Noticia.objects.filter(en_carrusel=True).order_by('-fecha_subida')
     
-    context = {'noticias': noticias}
+    context = {
+        'noticias': noticias,
+        'noticias_carrusel': noticias_carrusel
+    }
     return render(request, 'appchaosnews/index.html', context)
 
 def FAQ(request):
@@ -62,8 +68,45 @@ def subir_noticia(request):
         if form.is_valid():
             noticia = form.save(commit=False)
             noticia.autor = request.user
-            noticia.save()
+            noticia.save()  # Guardar la noticia primero para asignarle un ID
+            # Procesar las etiquetas seleccionadas después de guardar la noticia
+            etiquetas_seleccionadas = form.cleaned_data['etiquetas']
+            noticia.etiquetas.set(etiquetas_seleccionadas)
             return redirect('index')
     else:
         form = NoticiaForm()
     return render(request, 'appchaosnews/subir_noticia.html', {'form': form})
+
+
+@login_required
+def editar_noticia(request, noticia_id):
+    noticia = get_object_or_404(Noticia, id=noticia_id)
+
+    # Verificar si el usuario es el autor de la noticia
+    if noticia.autor != request.user:
+        return redirect('detalle_noticia', noticia_id=noticia_id)
+
+    if request.method == 'POST':
+        form = NoticiaForm(request.POST, request.FILES, instance=noticia)
+        if form.is_valid():
+            form.save()
+            return redirect('detalle_noticia', noticia_id=noticia.id)
+    else:
+        form = NoticiaForm(instance=noticia)
+
+    return render(request, 'appchaosnews/editar_noticia.html', {'form': form, 'noticia': noticia})
+
+@login_required
+def eliminar_noticia(request, noticia_id):
+    noticia = get_object_or_404(Noticia, id=noticia_id)
+
+    # Verificar si el usuario es el autor de la noticia
+    if noticia.autor != request.user:
+        return redirect('detalle_noticia', noticia_id=noticia_id)
+
+    if request.method == 'POST':
+        noticia.delete()
+        messages.success(request, 'Noticia eliminada correctamente.')
+        return redirect(reverse('index'))
+
+    return render(request, 'appchaosnews/eliminar_noticia.html', {'noticia': noticia})
