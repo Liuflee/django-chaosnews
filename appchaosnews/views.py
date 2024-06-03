@@ -7,6 +7,7 @@ from random import sample
 from .forms import NoticiaForm
 from django.contrib import messages
 from django.urls import reverse
+from django.db.models import Q
 
 def index(request):
     noticias = Noticia.objects.all().order_by('-fecha_subida').exclude(en_carrusel=True)
@@ -110,3 +111,20 @@ def eliminar_noticia(request, noticia_id):
         return redirect(reverse('index'))
 
     return render(request, 'appchaosnews/eliminar_noticia.html', {'noticia': noticia})
+
+
+
+def buscar_noticias(request):
+    query = request.GET.get('q')
+    if query:
+        resultados = Noticia.objects.filter(
+            Q(titulo__icontains=query) | 
+            Q(autor__first_name__icontains=query) |  # Buscar el nombre del autor
+            Q(etiquetas__nombre__icontains=query) |
+            Q(autor__last_name__icontains=query) # Buscar etiquetas que coincidan con la consulta
+        ).distinct()  # Asegurarse de obtener resultados únicos
+    else:
+        return redirect('index')  # Redirigir al índice si no hay consulta de búsqueda
+    noticias = Noticia.objects.all()  # Obtener todas las noticias para mostrarlas en el índice
+    noticias_carrusel = Noticia.objects.filter(en_carrusel=True).order_by('-fecha_subida')  # Obtener todas las noticias del carrusel
+    return render(request, 'appchaosnews/index.html', {'resultados': resultados, 'noticias': noticias, 'noticias_carrusel': noticias_carrusel, 'query': query})

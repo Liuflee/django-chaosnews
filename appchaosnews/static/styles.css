@@ -143,12 +143,12 @@ body.dark-mode {
     background-color: #fff;
 }
 
-.richfield-container .ck-editor {
+.richfield-container .django-ckeditor-widget {
     background-color: #fff;
     color: #333;
 }
 
-.dark-mode .richfield-container .ck-editor {
+.dark-mode .richfield-container .django-ckeditor-widget{
     background-color: #333;
     color: #fff;
 }
@@ -168,6 +168,7 @@ body.dark-mode {
     color: #fff;
 }
 
+  
 .navbar-brand {
     color: #333;
 }
@@ -212,6 +213,7 @@ body.dark-mode {
     border-color: #393939;
     background-color: #393939;
     outline: none;
+    color: #cccccc;
 }
 
 .dark-mode .img-ico {
@@ -492,4 +494,8 @@ body.dark-mode {
 .badge-modern:hover {
     transform: scale(1.05);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.nav-link {
+    cursor: pointer;
 }

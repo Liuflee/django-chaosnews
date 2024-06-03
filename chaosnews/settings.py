@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'appchaosnews',
     'ckeditor',
     'ckeditor_uploader',
+    'django.contrib.humanize',
 ]
 
 CKEDITOR_CONFIGS = {

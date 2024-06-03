@@ -1,4 +1,6 @@
 {% load static %}
+{% load custom_filters %}
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -8,7 +10,7 @@
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
-
+  
   <!-- script para cambiar modo -->
   <script src="{% static 'script.js' %}"></script>
 </head>
@@ -26,11 +28,13 @@
   
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav m-auto">
+
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'quienes_somos' %}">
                     <img src="{% static 'images/about-us-icon.png' %}" class="icon about-us-icon" alt=""> Quiénes somos
                 </a>
             </li>
+
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'FAQ' %}">
                     <img src="{% static 'images/FAQ-icon.png' %}" class="icon faq-icon" alt=""> FAQ
@@ -48,9 +52,10 @@
                   <img src="{% static 'images/dark-theme-icon.png' %}" class="icon dark-mode-icon" alt=""> Cambiar de Modo
               </a>
           </li>
+
             {% if user.is_authenticated %}
             <li class="nav-item dropdown">
-              
+            
                 <a class="nav-link dropdown-toggle" href="#" id="accountDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <img src="{% static 'images/login-icon.png' %}" class="icon login-icon" alt="">
                   {{ user.first_name|add:" "|add:user.last_name }}
@@ -59,7 +64,9 @@
                     <a class="dropdown-item" href="{% url 'subir_noticia' %}">Subir Noticia</a>
                     <a class="dropdown-item" href="{% url 'logout' %}">Cerrar sesión</a>
                 </div>
+
             </li>
+            
             {% else %}
             <li class="nav-item">
                 <a class="nav-link" id="loginBtn" href="{% url 'login' %}">
@@ -76,14 +83,6 @@
 <hr  class="hrxd">
 <!-- Contenido de la noticia en detalle -->
 
-<!-- Botón de edición si el usuario es el autor -->
-{% if user == noticia.autor %}
-    <div class="text-right  mr-5">
-        <a href="{% url 'editar_noticia' noticia.id %}" class="btn btn-warning"><i class="fas fa-edit"></i></a>
-        <a href="{% url 'eliminar_noticia' noticia.id %}" class="btn btn-danger"><i class="fas fa-trash"></i></a>
-
-    </div>
-{% endif %}
 
 
 <div class="container mt-4">
@@ -91,11 +90,27 @@
     <div class="col-lg-8">
       <!-- Título de la noticia -->
       <h2 class="mb-4 title-text">{{ noticia.titulo }}</h2>
-      <p style="top: 0;">Historia de {{ noticia.autor.first_name|add:' '|add:noticia.autor.last_name }} <b>•</b> <span class="" title="{{ noticia.fecha_subida|date:'j N, Y H:i' }}">
-        {{ noticia.fecha_subida|timesince }} atrás </span> </p>
+
+      <div style="display: inline;">
+        <p style="top: 0; display: inline-block; margin-right: 10px;">
+            Historia de {{ noticia.autor.first_name }} {{ noticia.autor.last_name }} <b>•</b> 
+            <span class="" title="{{ noticia.fecha_subida|date:'j N, Y H:i' }}">
+              <i class="fas fa-clock mr-1 ml-1"></i> {{ noticia.fecha_subida|human_readable_time }} 
+            </span>
+        </p>
+        {% if user == noticia.autor %}
+        <div class="text-right" style="display: inline; float: inline-end;">
+            <a href="{% url 'editar_noticia' noticia.id %}" class="btn btn-warning btn-sm mr-2"><i class="fas fa-edit"></i></a>
+            <a href="{% url 'eliminar_noticia' noticia.id %}" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>
+        </div>
+        {% endif %}
+    </div>
+    
+
+
       <!-- Imagen de la noticia -->
       <hr class="hrxd">
-      <div class="text-right mb-2">
+      <div class="text-center mb-2">
         <img src="{{ noticia.imagen.url }}" class="img-fluid" alt="{{ noticia.titulo }}">
       </div>
       

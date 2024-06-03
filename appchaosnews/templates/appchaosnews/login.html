@@ -84,7 +84,7 @@
     <div class="col-md-5 login-container">
         <div class="card">
             <div class="card-body">
-                <h2 class="card-title text-center mb-4">Iniciar sesión</h2>
+                <h2 class=" text-center mb-5 ">Iniciar sesión</h2>
                 <form method="POST" action="{% url 'login' %}" onsubmit="return validarFormulario()">
                     {% csrf_token %}
                     <div class="form-group">
@@ -96,7 +96,7 @@
                         <input type="password" class="form-control" id="password_l" name="password" placeholder="Ingrese su contraseña">
                     </div>
                     <div class="text-center">
-                        <button type="submit" class="btn btn-primary rounded-pill">Iniciar sesión</button>
+                        <button type="submit" class="btn btn-primary ">Iniciar sesión</button>
                     </div>
                 </form>
             </div>
