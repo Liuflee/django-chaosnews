@@ -54,7 +54,8 @@ CKEDITOR_CONFIGS = {
             ['NumberedList', 'BulletedList', 'Outdent', 'Indent'],
             ['JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
             ['Link', 'Unlink', 'Anchor'],
-            ['RemoveFormat'],
+            ['Image'],
+            
             ['Source'],
         ],
         'height': 200,
