@@ -1,13 +1,14 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import logout
-from django.core.paginator import Paginator
-from .models import Noticia
+from django.http import JsonResponse
+from .models import Noticia, Like, Comentario
 from random import sample
 from .forms import NoticiaForm
 from django.contrib import messages
 from django.urls import reverse
 from django.db.models import Q
+from django.contrib.auth import logout
+from .forms import ComentarioForm
 
 def index(request):
     noticias = Noticia.objects.all().order_by('-fecha_subida').exclude(en_carrusel=True)
@@ -35,6 +36,9 @@ def noticia(request):
     context = {}
     return render(request, 'appchaosnews/noticia.html', context)
 
+def logout_view(request):
+    logout(request)
+    return redirect('index')
 
 def detalle_noticia(request, noticia_id):
     # Obtener la noticia actual
@@ -50,17 +54,30 @@ def detalle_noticia(request, noticia_id):
     if noticias_relacionadas.count() > 3:
         noticias_relacionadas = sample(list(noticias_relacionadas), 3)
     
-    # Pasar las noticias relacionadas al contexto
+    # Manejar el envío de comentarios
+    if request.method == 'POST':
+        comentario_form = ComentarioForm(request.POST)
+        if comentario_form.is_valid():
+            comentario = comentario_form.save(commit=False)
+            comentario.noticia = noticia
+            comentario.usuario = request.user
+            comentario.save()
+            return redirect('detalle_noticia', noticia_id=noticia_id)
+    else:
+        comentario_form = ComentarioForm()
+
+    # Obtener todos los comentarios de la noticia actual
+    comentarios = noticia.comentarios.all()
+
+    # Pasar las noticias relacionadas y los comentarios al contexto
     context = {
         'noticia': noticia,
-        'noticias_relacionadas': noticias_relacionadas
+        'noticias_relacionadas': noticias_relacionadas,
+        'comentario_form': comentario_form,
+        'comentarios': comentarios,
     }
     
     return render(request, 'appchaosnews/detalle_noticia.html', context)
-
-def logout_view(request):
-    logout(request)
-    return redirect('index')
 
 @login_required
 def subir_noticia(request):
@@ -128,3 +145,22 @@ def buscar_noticias(request):
     noticias = Noticia.objects.all()  # Obtener todas las noticias para mostrarlas en el índice
     noticias_carrusel = Noticia.objects.filter(en_carrusel=True).order_by('-fecha_subida')  # Obtener todas las noticias del carrusel
     return render(request, 'appchaosnews/index.html', {'resultados': resultados, 'noticias': noticias, 'noticias_carrusel': noticias_carrusel, 'query': query})
+
+
+@login_required
+def like_noticia(request, noticia_id):
+    noticia = get_object_or_404(Noticia, id=noticia_id)
+    like, created = Like.objects.get_or_create(noticia=noticia, usuario=request.user)
+    if not created:
+        like.delete()
+    return JsonResponse({'likes_count': noticia.likes.count()})
+
+
+@login_required
+def comentar_noticia(request, noticia_id):
+    if request.method == 'POST':
+        noticia = get_object_or_404(Noticia, id=noticia_id)
+        contenido = request.POST.get('contenido')
+        Comentario.objects.create(noticia=noticia, usuario=request.user, contenido=contenido)
+        return redirect('detalle_noticia', noticia_id=noticia_id)
+    return redirect('detalle_noticia', noticia_id=noticia_id)

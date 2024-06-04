@@ -50,22 +50,36 @@ INSTALLED_APPS = [
 CKEDITOR_CONFIGS = {
     'default': {
         'toolbar': [
+            ['Font', 'FontSize'],
             ['Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript'],
             ['NumberedList', 'BulletedList', 'Outdent', 'Indent'],
             ['JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
-            ['Link', 'Unlink', 'Anchor'],
-            ['Image'],
+            ['Link', 'Image'],
             
-            ['Source'],
         ],
+
         'height': 200,
         'width': '100%',
-        'extraPlugins': 'autogrow',
-        'uiColor': '#f0f0f0',
-        'backgroundColor': '#f0f0f0',
 
+},
+
+    'comments': {
+        'toolbar': [
+            ['Font', '-', 'FontSize'],
+            ['Bold', '-', 'Italic', '-', 'Underline', '-', 'Strike', 'Subscript', 'Superscript'],
+            ['NumberedList', 'BulletedList', 'Outdent', 'Indent'],
+            ['JustifyLeft', 'JustifyCenter', '-', 'JustifyRight', 'JustifyBlock'],
+            ['Link', 'Image'],
+            ['Maximize', 'ShowBlocks', '-']
+            
+        ],
+
+        'height': 200,
+        'width': '100%',
     }
+
 }
+
 
 CKEDITOR_UPLOAD_PATH = "uploads/"
 

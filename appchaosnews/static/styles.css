@@ -143,15 +143,6 @@ body.dark-mode {
     background-color: #fff;
 }
 
-.richfield-container .django-ckeditor-widget {
-    background-color: #fff;
-    color: #333;
-}
-
-.dark-mode .richfield-container .django-ckeditor-widget{
-    background-color: #333;
-    color: #fff;
-}
 
 .dark-mode .card,
 .dark-mode .card-news {
@@ -499,3 +490,27 @@ body.dark-mode {
 .nav-link {
     cursor: pointer;
 }
+
+.btn-tr {
+    border-radius: 15px;
+    background-color: #fff;
+    color: #333;
+    border: #333;
+    padding: 10px;
+}
+
+.btn-tr:hover {
+    background-color: #333;
+    color: #fff;
+}
+
+.dark-mode .btn-tr {
+    background-color: #333;
+    color: #fff;
+}
+
+.dark-mode .btn-tr:hover {
+    background-color: #fff;
+    color: #333;
+}
+

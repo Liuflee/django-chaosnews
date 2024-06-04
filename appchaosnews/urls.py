@@ -14,4 +14,6 @@ urlpatterns = [
     path('noticia/<int:noticia_id>/eliminar/', views.eliminar_noticia, name='eliminar_noticia'),
     path('subir_noticia/', views.subir_noticia, name='subir_noticia'),
     path('buscar/', views.buscar_noticias, name='buscar_noticias'),
+    path('noticia/<int:noticia_id>/like/', views.like_noticia, name='like_noticia'),
+    path('noticia/<int:noticia_id>/comentar/', views.comentar_noticia, name='comentar_noticia'),
 ]

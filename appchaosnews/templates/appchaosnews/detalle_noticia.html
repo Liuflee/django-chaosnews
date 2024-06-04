@@ -123,12 +123,77 @@
         
       </span>
       </div>
+
+
       <!-- Contenido de la noticia -->
       <p class="lead" style="white-space: pre-wrap;">{{ noticia.contenido|safe }}</p>
 
+
+      <!-- Like, compartir y comentarios -->
+
+      <!-- Boton de like y comentar -->
+      <hr class="hrxd">
+      <div class="d-flex justify-content-between">
+
+
+        <div class="d-flex">
+          <button class="btn btn-sm btn-tr mr-2" id="like-button" data-url="{% url 'like_noticia' noticia.id %}">
+            <i class="fas fa-thumbs-up"></i> Me gusta (<span id="likes-count">{{ noticia.likes.count }}</span>)
+        </button>
+        
+          <button class="btn btn-sm btn-tr" data-toggle="collapse" data-target="#comment-section">
+            <i class="fas fa-comment"></i> Comentar
+          </button>
+        </div>
+
+          <!-- Botón para compartir en redes sociales -->
+        <div class="d-flex">
+            <button class="btn btn-sm btn-tr">
+              <i class="fas fa-share"></i> Compartir
+            </button>
+ 
+        </div>
+
+
+      </div>
+
+  <!-- Área de comentarios -->
+  <div id="comment-section" class="collapse mt-3">
+
+    <h4>Comentarios</h4>
+
+    <div style="align-items: center; justify-content: center; display: block;">
+      <form method="post" action="{% url 'comentar_noticia' noticia.id %}" style="width: 100%; display: block;" >
+        {% csrf_token %}
+        <div>
+          
+          {{ comentario_form.as_p }}
+        </div>
+        
+        <button type="submit" class="btn btn-tr">
+          <i class="fas fa-paper-plane"></i> Enviar
+        </button>
+      </form>
+
     </div>
 
+    <hr>
 
+    <div class="comments">
+      {% for comentario in comentarios %}
+      <div class="comment mb-2">
+        <p><strong>{{ comentario.usuario.username }}</strong>: {{ comentario.contenido|safe }}</p>
+        <small>{{ comentario.fecha }}</small>
+      </div>
+      {% endfor %}
+    </div>
+
+  </div>
+  {{ comentario_form.media }}
+
+</div>
+
+    <!-- Noticias relacionadas -->
 {% if noticias_relacionadas %}
 <div class="col-lg-4">
     <div class="other-news">
@@ -215,7 +280,22 @@
     } else {
         otherNews.classList.remove('sticky');
     }
-}
+  }
+    document.getElementById('like-button').addEventListener('click', function() {
+    var url = this.getAttribute('data-url');
+    fetch(url, {
+      method: 'POST',
+      headers: {
+        'X-CSRFToken': '{{ csrf_token }}',
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(response => response.json())
+    .then(data => {
+      document.getElementById('likes-count').textContent = data.likes_count;
+    });
+  });
+
 
   // Agregar un event listener para detectar el desplazamiento de la página
   window.addEventListener('scroll', stickyOtherNews);
