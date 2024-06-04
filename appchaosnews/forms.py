@@ -2,15 +2,6 @@ from django import forms
 from .models import Noticia, Etiqueta
 from django.contrib.auth.forms import AuthenticationForm
 from ckeditor.widgets import CKEditorWidget
-from .models import Comentario
-
-class ComentarioForm(forms.ModelForm):
-    class Meta:
-        model = Comentario
-        fields = ['contenido']
-        widgets = {
-            'contenido': CKEditorWidget(config_name='comments'),
-        }
 
 class NoticiaForm(forms.ModelForm):
     etiquetas = forms.ModelMultipleChoiceField(

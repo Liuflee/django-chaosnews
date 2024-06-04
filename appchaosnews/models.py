@@ -32,5 +32,5 @@ class Like(models.Model):
 class Comentario(models.Model):
     noticia = models.ForeignKey(Noticia, on_delete=models.CASCADE, related_name='comentarios')
     usuario = models.ForeignKey(User, on_delete=models.CASCADE)
-    contenido = RichTextField(config_name='comments')
+    contenido = models.TextField()
     fecha = models.DateTimeField(auto_now_add=True)

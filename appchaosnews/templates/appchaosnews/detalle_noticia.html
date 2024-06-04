@@ -157,41 +157,28 @@
 
       </div>
 
-  <!-- Área de comentarios -->
-  <div id="comment-section" class="collapse mt-3">
-
-    <h4>Comentarios</h4>
-
-    <div style="align-items: center; justify-content: center; display: block;">
-      <form method="post" action="{% url 'comentar_noticia' noticia.id %}" style="width: 100%; display: block;" >
-        {% csrf_token %}
-        <div>
-          
-          {{ comentario_form.as_p }}
+      <!-- Área de comentarios -->
+      <div id="comment-section" class="collapse mt-3">
+        <h4>Comentarios</h4>
+        <form method="post" action="{% url 'comentar_noticia' noticia.id %}">
+          {% csrf_token %}
+          <div class="form-group">
+            <textarea name="contenido" class="form-control" rows="3" required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">Enviar</button>
+        </form>
+        <hr>
+        <div class="comments">
+          {% for comentario in noticia.comentarios.all %}
+            <div class="comment mb-2">
+              <p><strong>{{ comentario.usuario.username }}</strong>: {{ comentario.contenido }}</p>
+              <small>{{ comentario.fecha }}</small>
+            </div>
+          {% endfor %}
         </div>
-        
-        <button type="submit" class="btn btn-tr">
-          <i class="fas fa-paper-plane"></i> Enviar
-        </button>
-      </form>
-
-    </div>
-
-    <hr>
-
-    <div class="comments">
-      {% for comentario in comentarios %}
-      <div class="comment mb-2">
-        <p><strong>{{ comentario.usuario.username }}</strong>: {{ comentario.contenido|safe }}</p>
-        <small>{{ comentario.fecha }}</small>
       </div>
-      {% endfor %}
     </div>
 
-  </div>
-  {{ comentario_form.media }}
-
-</div>
 
     <!-- Noticias relacionadas -->
 {% if noticias_relacionadas %}

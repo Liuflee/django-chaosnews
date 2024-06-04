@@ -8,7 +8,6 @@ from django.contrib import messages
 from django.urls import reverse
 from django.db.models import Q
 from django.contrib.auth import logout
-from .forms import ComentarioForm
 
 def index(request):
     noticias = Noticia.objects.all().order_by('-fecha_subida').exclude(en_carrusel=True)
@@ -36,48 +35,22 @@ def noticia(request):
     context = {}
     return render(request, 'appchaosnews/noticia.html', context)
 
+
+def detalle_noticia(request, noticia_id):
+    noticia = get_object_or_404(Noticia, pk=noticia_id)
+    etiquetas = noticia.etiquetas.all()
+    noticias_relacionadas = Noticia.objects.filter(etiquetas__in=etiquetas).exclude(id=noticia_id).distinct()
+    if noticias_relacionadas.count() > 3:
+        noticias_relacionadas = sample(list(noticias_relacionadas), 3)
+    context = {
+        'noticia': noticia,
+        'noticias_relacionadas': noticias_relacionadas
+    }
+    return render(request, 'appchaosnews/detalle_noticia.html', context)
+
 def logout_view(request):
     logout(request)
     return redirect('index')
-
-def detalle_noticia(request, noticia_id):
-    # Obtener la noticia actual
-    noticia = get_object_or_404(Noticia, pk=noticia_id)
-    
-    # Obtener las etiquetas de la noticia actual
-    etiquetas = noticia.etiquetas.all()
-    
-    # Obtener todas las noticias relacionadas que tengan al menos una etiqueta en común
-    noticias_relacionadas = Noticia.objects.filter(etiquetas__in=etiquetas).exclude(id=noticia_id).distinct()
-    
-    # Si hay más de tres noticias relacionadas, seleccionar tres aleatorias
-    if noticias_relacionadas.count() > 3:
-        noticias_relacionadas = sample(list(noticias_relacionadas), 3)
-    
-    # Manejar el envío de comentarios
-    if request.method == 'POST':
-        comentario_form = ComentarioForm(request.POST)
-        if comentario_form.is_valid():
-            comentario = comentario_form.save(commit=False)
-            comentario.noticia = noticia
-            comentario.usuario = request.user
-            comentario.save()
-            return redirect('detalle_noticia', noticia_id=noticia_id)
-    else:
-        comentario_form = ComentarioForm()
-
-    # Obtener todos los comentarios de la noticia actual
-    comentarios = noticia.comentarios.all()
-
-    # Pasar las noticias relacionadas y los comentarios al contexto
-    context = {
-        'noticia': noticia,
-        'noticias_relacionadas': noticias_relacionadas,
-        'comentario_form': comentario_form,
-        'comentarios': comentarios,
-    }
-    
-    return render(request, 'appchaosnews/detalle_noticia.html', context)
 
 @login_required
 def subir_noticia(request):
