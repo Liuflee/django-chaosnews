@@ -1,8 +1,6 @@
 # appchaosnews/templatetags/custom_filters.py
 from django import template
-from datetime import datetime
 from django.utils import timezone
-from django.utils.timesince import timesince, timeuntil
 
 register = template.Library()
 

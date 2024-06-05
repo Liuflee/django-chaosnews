@@ -23,10 +23,6 @@ def FAQ(request):
     context = {}
     return render(request, 'appchaosnews/FAQ.html', context)
 
-def login(request):
-    context = {}
-    return render(request, 'appchaosnews/login.html', context)
-
 def quienes_somos(request):
     context = {}
     return render(request, 'appchaosnews/quienes_somos.html', context)

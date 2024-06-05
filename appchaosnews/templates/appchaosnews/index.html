@@ -1,3 +1,4 @@
+
 {% load static %}
 
 <!DOCTYPE html>
@@ -14,12 +15,9 @@
   <script src="{% static 'script.js' %}"></script>
 </head>
 
-
 <body class="light-mode"> <!-- esta clase sirve para cambiar el modo -->
 
-
-
-<!-- navbar que se colapsapara  que sea reponsive-->
+<!-- navbar -->
 <nav class="navbar navbar-expand-lg navbar">
   <a class="navbar-brand" href="{% url 'index' %}">
       <img class="logo" src="{% static 'images/Chaos News-logo.png' %}" alt="">
@@ -28,14 +26,16 @@
       aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
   </button>
-
+  <!-- enlaces de la barra de navegación -->
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav m-auto">
+
           <li class="nav-item">
               <a class="nav-link" href="{% url 'quienes_somos' %}">
                   <img src="{% static 'images/about-us-icon.png' %}" class="icon about-us-icon" alt=""> Quiénes somos
               </a>
           </li>
+
           <li class="nav-item">
               <a class="nav-link" href="{% url 'FAQ' %}">
                   <img src="{% static 'images/FAQ-icon.png' %}" class="icon faq-icon" alt=""> FAQ
@@ -52,8 +52,10 @@
             <a class="nav-link" id="modoBtn" href="#">
                 <img src="{% static 'images/dark-theme-icon.png' %}" class="icon dark-mode-icon" alt=""> Cambiar de Modo
             </a>
-        </li>
+          </li>
+
           {% if user.is_authenticated %}
+          <!-- Si el usuario está autenticado, se muestra el dropdown con las opciones de cuenta -->
           <li class="nav-item dropdown">
             
               <a class="nav-link dropdown-toggle" href="#" id="accountDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -77,11 +79,7 @@
   </div>
 </nav>
 
-
-
-
 <hr class="hrxd">
-
 
 <div class="container">
   <div class="row mt-2 first-row">
@@ -109,150 +107,165 @@
               <span class="carousel-control-next-icon" aria-hidden="true"></span>
           </a>
       </div>
-  </div>
+    </div>
 
-
-  
-
-  <div class="container">
-    <div class="row mt-4 justify-content-center">
-      <div class="col-8">
-        <form action="{% url 'buscar_noticias' %}" method="GET"> 
-          <div class="input-group input-container">
-            <input type="search" name="q" class="form-control rounded-search" placeholder="Buscar" aria-label="Buscar">
-            <div class="input-group-append">
-              <button class="btn btn-buscar" type="submit">
-                
-                <i class="fas fa-magnifying-glass"></i>
-              </button>
+    <!-- barra de busqueda -->
+    <div class="container">
+      <div class="row mt-4 justify-content-center">
+        <div class="col-8">
+          <form action="{% url 'buscar_noticias' %}" method="GET"> 
+            <div class="input-group input-container">
+              <input type="search" name="q" class="form-control rounded-search" placeholder="Buscar" aria-label="Buscar">
+              <div class="input-group-append">
+                <button class="btn btn-buscar" type="submit">
+                  
+                  <i class="fas fa-magnifying-glass"></i>
+                </button>
+              </div>
             </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  
+<!-----------------------------
+    `    ``               `
+      ``  _ `      `       ``
+    `   |_| `  `` ``    `  `
+    ``  -___-_` `   ` --------------
+  ``   /      )      | This is fine |`
+`____/| (0) (0)_()  |/-------------  `
+/|   | |   ^____)      ``      ``
+||   |_|    \_//     Uɔ````   `` ``
+||    || |    |    ========`  ``  ``
+||    || |    |      ||     ``   `
+||     \\_\   |\     ||   ```    `
+=========||====||    ||  ``       `
+  || ||   \Ɔ || \Ɔ   ||   ``    ``
+  || ||      ||      ||  `     ``
+--------------------------------->
+
+    <!-- noticias -->
+    <div class="container">
+      <div class="row mt-2">
+        <!-- si se hace una búsqueda, se muestran los resultados de la búsqueda -->
+          {% if query %}
+              {% if resultados %}
+                  {% for noticia in resultados %}
+                      {% if forloop.counter0|divisibleby:9 %} 
+                      <!-- noticia grande -->
+                      <div class="col-lg-6">
+                        <a href="{% url 'detalle_noticia' noticia.id %}" class="card-link">  <!-- Enlace al detalle de la noticia -->
+                          <div class="card mb-4 card-news custom-card" style="background-image: url('{{ noticia.imagen.url }}');">
+                            <div class="card-body custom-card-body">
+                              <h5 class="card-title custom-card-title">{{ noticia.titulo }}</h5>
+                            </div>
+                          </div>
+                        </a>
+                      </div>
+                      {% else %}
+                      <!-- noticia pequeña -->
+                      <div class="col-lg-3 mx-0">
+                        <a href="{% url 'detalle_noticia' noticia.id %}" class="card-link">  <!-- Enlace al detalle de la noticia -->
+                          <div class="card mb-4 card-news">
+                            <img src="{{ noticia.imagen.url }}" class="card-img-top n-img" alt="{{ noticia.titulo }}">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ noticia.titulo }}</h5>
+                            </div>
+                          </div>
+                        </a>
+                      </div>
+                      {% endif %}
+                  {% endfor %}
+              {% else %}
+                  <p>No se encontraron resultados.</p>
+              {% endif %}
+          {% else %}
+              {% for noticia in noticias %}
+                  {% if forloop.counter0|divisibleby:9 %} 
+                      <!-- noticia grande -->
+                      <div class="col-lg-6">
+                          <a href="{% url 'detalle_noticia' noticia.id %}" class="card-link">  <!-- Enlace al detalle de la noticia -->
+                              <div class="card mb-4 card-news custom-card" style="background-image: url('{{ noticia.imagen.url }}');">
+                                  <div class="card-body custom-card-body">
+                                      <h5 class="card-title custom-card-title">{{ noticia.titulo }}</h5>
+                                  </div>
+                              </div>
+                          </a>
+                      </div>
+                  {% else %}
+                      <!-- noticia pequeña -->
+                      <div class="col-lg-3 mx-0">
+                          <a href="{% url 'detalle_noticia' noticia.id %}" class="card-link">  <!-- Enlace al detalle de la noticia -->
+                              <div class="card mb-4 card-news">
+                                  <img src="{{ noticia.imagen.url }}" class="card-img-top n-img" alt="{{ noticia.titulo }}">
+                                  <div class="card-body">
+                                      <h5 class="card-title">{{ noticia.titulo }}</h5>
+                                  </div>
+                              </div>
+                          </a>
+                      </div>
+                  {% endif %}
+              {% endfor %}
+          {% endif %}
+      </div>
+    </div>
+
+    <hr class="hrxd">
+
+    <!-- botón para volver arriba -->
+    <button id="volverArribaBtn" class="btn button volver-arriba-btn" onclick="scrollToTop()">
+      <img src=" {% static '/images/backarrow.png' %}" alt="" class="volver-arriba-img">
+    </button>
+
+</div>
+
+<!-- footer -->
+<footer class="footer mt-auto py-3">
+  <div class="container text-left">
+    <hr class="hrxd">
+    <span class="text-muted">© 2024 Chaos News. Todos los derechos reservados.</span>
+  </div>
+</footer>
+    
+    
+<!-- modal de contacto -->
+<div id="contactoModal" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content dark-mode-bg"> <!-- Añade la clase dark-mode-bg al modal -->
+      <div class="modal-header">
+        <h5 class="modal-title">Contáctanos</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <h1 class="text-center">Contáctanos</h1>
+        <p class="text-center">¡Estamos aquí para ayudarte! Completa el siguiente formulario y nos pondremos en contacto contigo lo antes posible.</p>
+
+        <form action="enviar.php" method="post">
+          <div class="form-group mt-5">
+            <input type="text" class="form-control form-control-sm" id="nombre" name="nombre" placeholder="Nombre" required>
           </div>
-        </form>
+          <div class="form-group">
+            <input type="email" class="form-control form-control-sm" id="email" name="email" placeholder="Correo electrónico" required>
+          </div>
+          <div class="form-group">
+            <textarea class="form-control form-control-sm" id="mensaje" name="mensaje" rows="5" placeholder="Mensaje" required></textarea>
+          </div>
+          <div class="text-center">
+            <button type="submit" class="btn btn-primary">Enviar mensaje</button>
       </div>
     </div>
   </div>
-  
+</div>
 
-      <div class="container">
-        <div class="row mt-2">
-            {% if query %}
-                {% if resultados %}
-                    {% for noticia in resultados %}
-                        {% if forloop.counter0|divisibleby:9 %} 
-                            <div class="col-lg-6">
-                                <a href="{% url 'detalle_noticia' noticia.id %}" class="card-link">  <!-- Enlace al detalle de la noticia -->
-                                    <div class="card mb-4 card-news custom-card" style="background-image: url('{{ noticia.imagen.url }}');">
-                                        <div class="card-body custom-card-body">
-                                            <h5 class="card-title custom-card-title">{{ noticia.titulo }}</h5>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        {% else %}
-                            <div class="col-lg-3 mx-0">
-                                <a href="{% url 'detalle_noticia' noticia.id %}" class="card-link">  <!-- Enlace al detalle de la noticia -->
-                                    <div class="card mb-4 card-news">
-                                        <img src="{{ noticia.imagen.url }}" class="card-img-top n-img" alt="{{ noticia.titulo }}">
-                                        <div class="card-body">
-                                            <h5 class="card-title">{{ noticia.titulo }}</h5>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        {% endif %}
-                    {% endfor %}
-                {% else %}
-                    <p>No se encontraron resultados.</p>
-                {% endif %}
-            {% else %}
-                {% for noticia in noticias %}
-                    {% if forloop.counter0|divisibleby:9 %} 
-                        <div class="col-lg-6">
-                            <a href="{% url 'detalle_noticia' noticia.id %}" class="card-link">  <!-- Enlace al detalle de la noticia -->
-                                <div class="card mb-4 card-news custom-card" style="background-image: url('{{ noticia.imagen.url }}');">
-                                    <div class="card-body custom-card-body">
-                                        <h5 class="card-title custom-card-title">{{ noticia.titulo }}</h5>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                    {% else %}
-                        <div class="col-lg-3 mx-0">
-                            <a href="{% url 'detalle_noticia' noticia.id %}" class="card-link">  <!-- Enlace al detalle de la noticia -->
-                                <div class="card mb-4 card-news">
-                                    <img src="{{ noticia.imagen.url }}" class="card-img-top n-img" alt="{{ noticia.titulo }}">
-                                    <div class="card-body">
-                                        <h5 class="card-title">{{ noticia.titulo }}</h5>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                    {% endif %}
-                {% endfor %}
-            {% endif %}
-        </div>
-        
-    </div>
+<!-- scripts de bootstrap y jquery -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<!--font awesome-->
+<script src="https://kit.fontawesome.com/2c36e9b7b1.js" crossorigin="anonymous"></script>
     
-    <hr class="hrxd">
-  
-
-      <!-- botón para volver arriba -->
-      <button id="volverArribaBtn" class="btn button volver-arriba-btn" onclick="scrollToTop()">
-        <img src=" {% static '/images/backarrow.png' %}" alt="" class="volver-arriba-img">
-      </button>
-
-      
-    </div>
-
-    <footer class="footer mt-auto py-3">
-      <div class="container text-left">
-        <hr class="hrxd">
-        <span class="text-muted">© 2024 Chaos News. Todos los derechos reservados.</span>
-      </div>
-    </footer>
-    
-    
-    <!-- Modal de contacto -->
-
-    <div id="contactoModal" class="modal fade" tabindex="-1" role="dialog">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content dark-mode-bg"> <!-- Añade la clase dark-mode-bg al modal -->
-          <div class="modal-header">
-            <h5 class="modal-title">Contáctanos</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <h1 class="text-center">Contáctanos</h1>
-            <p class="text-center">¡Estamos aquí para ayudarte! Completa el siguiente formulario y nos pondremos en contacto contigo lo antes posible.</p>
-
-            <form action="enviar.php" method="post">
-              <div class="form-group mt-5">
-                <input type="text" class="form-control form-control-sm" id="nombre" name="nombre" placeholder="Nombre" required>
-              </div>
-              <div class="form-group">
-                <input type="email" class="form-control form-control-sm" id="email" name="email" placeholder="Correo electrónico" required>
-              </div>
-              <div class="form-group">
-                <textarea class="form-control form-control-sm" id="mensaje" name="mensaje" rows="5" placeholder="Mensaje" required></textarea>
-              </div>
-              <div class="text-center">
-                <button type="submit" class="btn btn-primary">Enviar mensaje</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- scripts de bootstrap -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <!--font awesome-->
-    <script src="https://kit.fontawesome.com/2c36e9b7b1.js" crossorigin="anonymous"></script>
-    
-    
-
 </body>
 </html>
