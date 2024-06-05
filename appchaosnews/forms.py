@@ -1,7 +1,8 @@
 from django import forms
 from .models import Noticia, Etiqueta
-from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from ckeditor.widgets import CKEditorWidget
+from django.contrib.auth.models import User
 
 class NoticiaForm(forms.ModelForm):
     etiquetas = forms.ModelMultipleChoiceField(
@@ -26,3 +27,12 @@ class NoticiaForm(forms.ModelForm):
         
 class CustomAuthenticationForm(AuthenticationForm):
     username = forms.EmailField(widget=forms.EmailInput(attrs={'class': 'form-control'}), label="Correo electrónico")
+
+class RegistroForm(UserCreationForm):
+    first_name = forms.CharField(max_length=30, required=True, help_text='Required. Nombre')
+    last_name = forms.CharField(max_length=30, required=True, help_text='Required. Apellido')
+    email = forms.EmailField(max_length=254, help_text='Required. Inform a valid email address.')
+
+    class Meta:
+        model = User
+        fields = ('username', 'first_name', 'last_name', 'email', 'password1', 'password2')

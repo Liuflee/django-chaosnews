@@ -103,18 +103,21 @@
   </div>
 </div>
 
+<!-- Modal de contacto -->
+
 <div id="contactoModal" class="modal fade" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
-    <div class="modal-content dark-mode-bg">
+    <div class="modal-content modal-bg"> <!-- Añade la clase dark-mode-bg al modal -->
       <div class="modal-header">
         <h5 class="modal-title">Contáctanos</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
+          <i class="fas fa-xmark"></i>
         </button>
       </div>
       <div class="modal-body">
         <h1 class="text-center">Contáctanos</h1>
         <p class="text-center">¡Estamos aquí para ayudarte! Completa el siguiente formulario y nos pondremos en contacto contigo lo antes posible.</p>
+
         <form action="enviar.php" method="post">
           <div class="form-group mt-5">
             <input type="text" class="form-control form-control-sm" id="nombre" name="nombre" placeholder="Nombre" required>
@@ -126,7 +129,8 @@
             <textarea class="form-control form-control-sm" id="mensaje" name="mensaje" rows="5" placeholder="Mensaje" required></textarea>
           </div>
           <div class="text-center">
-            <button type="submit" class="btn btn-primary">Enviar mensaje</button>
+            <button type="submit" class="btn btn-tr btn-modal">
+              <i class="fas fa-paper-plane"></i> Enviar mensaje</button>
           </div>
         </form>
       </div>

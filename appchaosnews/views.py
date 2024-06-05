@@ -3,11 +3,12 @@ from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from .models import Noticia, Like, Comentario
 from random import sample
-from .forms import NoticiaForm
+from .forms import NoticiaForm, RegistroForm
 from django.contrib import messages
 from django.urls import reverse
 from django.db.models import Q
 from django.contrib.auth import logout
+from django.contrib.auth.forms import UserCreationForm
 
 def index(request):
     noticias = Noticia.objects.all().order_by('-fecha_subida').exclude(en_carrusel=True)
@@ -133,3 +134,15 @@ def comentar_noticia(request, noticia_id):
         Comentario.objects.create(noticia=noticia, usuario=request.user, contenido=contenido)
         return redirect('detalle_noticia', noticia_id=noticia_id)
     return redirect('detalle_noticia', noticia_id=noticia_id)
+
+
+
+def registro(request):
+    if request.method == 'POST':
+        form = RegistroForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('login')  # Redireccionar al inicio de sesión después de un registro exitoso
+    else:
+        form = RegistroForm()
+    return render(request, 'appchaosnews/registro.html', {'form': form})

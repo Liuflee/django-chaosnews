@@ -86,10 +86,6 @@ body {
     margin-bottom: 1.5rem;
 }
 
-.btn-buscar {
-    border-radius: 20px;
-    background-color: #fff;
-}
 
 .carousel-control-prev,
 .carousel-control-next {
@@ -109,6 +105,10 @@ body {
 .n-img {
     height: 120px;
     object-fit: cover;
+}
+
+.dark-mode .close {
+    color: #fff;
 }
 
 .card-body {
@@ -186,6 +186,31 @@ body.dark-mode {
     border-radius: 20px;
 }
 
+::-webkit-scrollbar {
+    height: 1rem;
+    width: .5rem;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent; /* Color de fondo del track */
+}
+
+html ::-webkit-scrollbar-thumb {
+    background: #A0A0A0; /* Color del thumb */
+    border-radius: 10px; /* Radio de borde para esquinas redondeadas */
+}
+
+html.dark ::-webkit-scrollbar-thumb {
+    background: #363636; /* Color del thumb */
+    border-radius: 10px; /* Radio de borde para esquinas redondeadas */
+}
+
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555; /* Color del thumb al pasar el mouse */
+}
+
+
 .dark-mode .button:hover {
     background-color: #ededed;
     color: #333;
@@ -200,10 +225,15 @@ body.dark-mode {
     border-color: #393939;
 }
 
+.btn-buscar {
+    border-radius: 20px;
+    background-color: #fff;
+    outline: none;
+}
+
 .dark-mode .btn-buscar {
     border-color: #393939;
     background-color: #393939;
-    outline: none;
     color: #cccccc;
 }
 
@@ -231,22 +261,42 @@ body.dark-mode {
 
 .form-control {
     border-radius: 5px;
-    width: 100%;
-    background-color: transparent;
-    border: none;
-    border-bottom: 1px solid #ccc;
-    outline: none;
+    background-color: #fff;
+    border: 1px groove #dbdbdb;
+}
+
+
+.dark-mode .form-control {
+    border-color: #444444;
+    background-color: #393939;
     color: #fff;
 }
 
-.form-group input:focus,
-.form-group select:focus,
-.form-group textarea:focus {
-    outline: none;
-    box-shadow: none;
-    background-color: transparent;
+.comment-area {
+    border-radius: 5px;
+    background-color: #fff;
+    border: 1px groove #dbdbdb;
+    resize: none;
+    height: 50px;
+    width: 100%;
+    padding: .25rem .5rem;
+    overflow-y: hidden; 
+    transition: height 0.3s ease;
 }
 
+.dark-mode .comment-area {
+    background-color: #2c2c2c;
+    border: 1px groove #393939;
+    color: #fff;
+
+}
+
+.comment-area:focus {
+    height: 152px;
+    transition: height 0.3s ease;
+    outline: none
+    ;
+}
 .form-group label {
     color: #333;
     font-weight: bold;
@@ -266,6 +316,7 @@ body.dark-mode {
 
 .form-group textarea {
     color: #333;
+    
 }
 
 .dark-mode .form-group textarea {
@@ -287,6 +338,10 @@ body.dark-mode {
     color: #333;
 }
 
+.btn-modal {
+    border: 1px groove #2c2c2c;
+}
+  
 .dark-mode .rounded-search {
     background-color: #393939;
     color: #fff;
@@ -433,16 +488,19 @@ body.dark-mode {
     margin-bottom: 4px;
 }
 
-.light-mode .dark-mode-bg {
-    background-color: #fff; /* Cambia el color de fondo del modal en modo claro */
+.light-mode .modal-bg {
+    background-color: #ededed; /* Cambia el color de fondo del modal en modo claro */
     color: #000; /* Cambia el color del texto del modal en modo claro */
   }
   
-  .dark-mode .dark-mode-bg {
-    background-color: #333; /* Cambia el color de fondo del modal en modo oscuro */
+.dark-mode .modal-bg {
+    background-color: #242424; /* Cambia el color de fondo del modal en modo oscuro */
     color: #fff; /* Cambia el color del texto del modal en modo oscuro */
   }
   
+.dark-mode .modal-header {
+    border: 1px groove #363636; /* Cambia el color del borde del header del modal en modo oscuro */
+  }
 .carousel-title {
     font-size: 1.5rem;
     font-weight: bold;
@@ -513,4 +571,5 @@ body.dark-mode {
     background-color: #fff;
     color: #333;
 }
+
 

@@ -1,20 +1,23 @@
 document.addEventListener('DOMContentLoaded', function() {
-    var modoBtn = document.getElementById('modoBtn');
-  
-    modoBtn.addEventListener('click', function() {
-      var body = document.body;
-      body.classList.toggle('dark-mode');
-      console.log(body.classList.contains('dark-mode') ? 'Modo oscuro activado' : 'Modo oscuro desactivado');
-      
-      var modoActual = body.classList.contains('dark-mode') ? 'dark' : 'light';
-      localStorage.setItem('modoPreferido', modoActual);
-    });
+  var body = document.body;
+  var html = document.querySelector("html");
+  var modoBtn = document.getElementById('modoBtn');
+  var modoPreferido = localStorage.getItem('modoPreferido');
 
-    var modoPreferido = localStorage.getItem('modoPreferido');
-    if (modoPreferido === 'dark') {
-      document.body.classList.add('dark-mode');
-    }
-  });
+  function toggleDarkMode() {
+    html.classList.toggle('dark');
+    body.classList.toggle('dark-mode');
+    console.log(body.classList.contains('dark-mode') ? 'Modo oscuro activado' : 'Modo oscuro desactivado');
+    localStorage.setItem('modoPreferido', body.classList.contains('dark-mode') ? 'dark' : 'light');
+  }
+
+  modoBtn.addEventListener('click', toggleDarkMode);
+
+  if (modoPreferido === 'dark') {
+    html.classList.add('dark');
+    body.classList.add('dark-mode');
+  }
+});
 
 
   // Función para controlar el desplazamiento hacia arriba

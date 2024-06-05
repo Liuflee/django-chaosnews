@@ -95,15 +95,15 @@
 
 
 
-  <!-- Modal de contacto -->
+<!-- Modal de contacto -->
 
 <div id="contactoModal" class="modal fade" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
-    <div class="modal-content dark-mode-bg"> <!-- Añade la clase dark-mode-bg al modal -->
+    <div class="modal-content modal-bg"> <!-- Añade la clase dark-mode-bg al modal -->
       <div class="modal-header">
         <h5 class="modal-title">Contáctanos</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
+          <i class="fas fa-xmark"></i>
         </button>
       </div>
       <div class="modal-body">
@@ -121,11 +121,15 @@
             <textarea class="form-control form-control-sm" id="mensaje" name="mensaje" rows="5" placeholder="Mensaje" required></textarea>
           </div>
           <div class="text-center">
-            <button type="submit" class="btn btn-primary">Enviar mensaje</button>
+            <button type="submit" class="btn btn-tr btn-modal">
+              <i class="fas fa-paper-plane"></i> Enviar mensaje</button>
+          </div>
+        </form>
       </div>
     </div>
   </div>
 </div>
+
 
 
 

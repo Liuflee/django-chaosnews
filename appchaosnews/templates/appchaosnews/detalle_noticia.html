@@ -2,7 +2,7 @@
 {% load custom_filters %}
 
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" >
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -163,9 +163,10 @@
         <form method="post" action="{% url 'comentar_noticia' noticia.id %}">
           {% csrf_token %}
           <div class="form-group">
-            <textarea name="contenido" class="form-control" rows="3" required></textarea>
+            <textarea name="contenido" class="comment-area" id="comment-area" placeholder="Haz un comentario" rows="6" required></textarea>
           </div>
-          <button type="submit" class="btn btn-primary">Enviar</button>
+          
+          <button type="submit" class="btn btn-tr"><i class="fas fa-paper-plane"></i> Enviar</button>
         </form>
         <hr>
         <div class="comments">
@@ -216,11 +217,11 @@
 
 <div id="contactoModal" class="modal fade" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
-    <div class="modal-content dark-mode-bg"> <!-- Añade la clase dark-mode-bg al modal -->
+    <div class="modal-content modal-bg"> <!-- Añade la clase dark-mode-bg al modal -->
       <div class="modal-header">
         <h5 class="modal-title">Contáctanos</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
+          <i class="fas fa-xmark"></i>
         </button>
       </div>
       <div class="modal-body">
@@ -238,7 +239,8 @@
             <textarea class="form-control form-control-sm" id="mensaje" name="mensaje" rows="5" placeholder="Mensaje" required></textarea>
           </div>
           <div class="text-center">
-            <button type="submit" class="btn btn-primary">Enviar mensaje</button>
+            <button type="submit" class="btn btn-tr btn-modal">
+              <i class="fas fa-paper-plane"></i> Enviar mensaje</button>
           </div>
         </form>
       </div>
@@ -259,6 +261,7 @@
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script>
+
   function stickyOtherNews() {
   var otherNews = document.querySelector('.other-news');
   var otherNewsOffset = otherNews.offsetTop;
@@ -286,6 +289,33 @@
 
   // Agregar un event listener para detectar el desplazamiento de la página
   window.addEventListener('scroll', stickyOtherNews);
+
+  document.addEventListener('DOMContentLoaded', function() {
+    var textarea = document.getElementById('comment-area');
+
+    textarea.addEventListener('input', function() {
+        this.style.height = 'auto'; // Resetea la altura para calcular el scrollHeight correctamente
+        this.style.height = (this.scrollHeight) + 'px';
+    });
+
+    textarea.addEventListener('focus', function() {
+        this.classList.add('no-placeholder'); // Oculta el placeholder
+        if (this.scrollHeight < 152) {
+            this.style.height = '152px'; // Altura mínima al enfocarse
+        } else {
+            this.style.height = (this.scrollHeight) + 'px'; // Ajuste según el contenido
+        }
+    });
+
+    textarea.addEventListener('blur', function() {
+        this.classList.remove('no-placeholder'); // Muestra el placeholder nuevamente
+        if (this.value === '') {
+            this.style.height = '50px'; // Altura base al perder el foco si está vacío
+        }
+    });
+});
+
+
 
 </script>
 
