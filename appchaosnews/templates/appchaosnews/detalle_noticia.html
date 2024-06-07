@@ -81,8 +81,6 @@
 <hr  class="hrxd">
 <!-- Contenido de la noticia en detalle -->
 
-
-
 <div class="container mt-4">
   <div class="row justify-content-left">
     <div class="col-lg-8">
@@ -98,8 +96,8 @@
         </p>
         {% if user == noticia.autor %}
         <div class="text-right" style="display: inline; float: inline-end;">
-            <a href="{% url 'editar_noticia' noticia.id %}" class="btn btn-warning btn-sm mr-2"><i class="fas fa-edit"></i></a>
-            <a href="{% url 'eliminar_noticia' noticia.id %}" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>
+            <a href="{% url 'editar_noticia' noticia.id %}" class="btn btn-edit  mr-2"><i class="fas fa-edit"></i></a>
+            <a href="{% url 'eliminar_noticia' noticia.id %}" class="btn btn-delete "><i class="fas fa-trash"></i></a>
         </div>
         {% endif %}
     </div>
@@ -157,27 +155,31 @@
 
       </div>
 
-      <!-- Área de comentarios -->
+      <!-- Sección de comentarios -->
       <div id="comment-section" class="collapse mt-3">
-        <h4>Comentarios</h4>
-        <form method="post" action="{% url 'comentar_noticia' noticia.id %}">
+        <h4 class="mb-4">Comentarios</h4>
+        <form id="comment-form" method="post" action="{% url 'comentar_noticia' noticia.id %}">
           {% csrf_token %}
-          <div class="form-group">
+          <div class="form-group mb-3">
             <textarea name="contenido" class="comment-area" id="comment-area" placeholder="Haz un comentario" rows="6" required></textarea>
           </div>
-          
           <button type="submit" class="btn btn-tr"><i class="fas fa-paper-plane"></i> Enviar</button>
         </form>
-        <hr>
-        <div class="comments">
+        <hr class="my-4">
+        <div id="comments" class="comments">
           {% for comentario in noticia.comentarios.all %}
-            <div class="comment mb-2">
-              <p><strong>{{ comentario.usuario.username }}</strong>: {{ comentario.contenido }}</p>
-              <small>{{ comentario.fecha }}</small>
+            <div class="comment p-3 mb-3 rounded comment-box">
+              <div class="d-flex justify-content-between align-items-center mb-2">
+                <strong>{{ comentario.usuario.username }}</strong>
+                <small class="text-muted">{{ comentario.fecha }}</small>
+              </div>
+              <p>{{ comentario.contenido }}</p>
             </div>
           {% endfor %}
         </div>
       </div>
+      
+
     </div>
 
 
@@ -258,6 +260,7 @@
 
 <!-- Scripts de Bootstrap y otros -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script>
@@ -315,7 +318,29 @@
     });
 });
 
-
+// Enviar el formulario de comentario mediante AJAX
+$(document).ready(function(){
+  $('#comment-form').submit(function(event){
+    event.preventDefault();
+    
+    var form = $(this);
+    var actionUrl = form.attr('action');
+    var formData = form.serialize();
+    
+    $.post(actionUrl, formData, function(response){
+      // Suponiendo que el servidor devuelve la sección de comentarios actualizada
+      $('#comments').html($(response).find('#comments').html());
+      
+      // Desplazar el scroll hacia la sección de comentarios
+      $('html, body').animate({
+        scrollTop: $("#comment-section").offset().top
+      }, 1000);
+      
+      // Limpiar el área de comentario
+      $('#comment-area').val('');
+    });
+  });
+});
 
 </script>
 

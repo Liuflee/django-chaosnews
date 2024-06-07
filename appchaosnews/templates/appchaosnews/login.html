@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chaos News</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
 
     <!-- script para cambiar modo -->
@@ -80,7 +81,7 @@
 
     <!-- Login -->
    <!-- Login -->
-   <div class="container center-screen">
+   < <div class="container center-screen">
     <div class="col-md-5 login-container">
         <div class="card">
             <div class="card-body">
@@ -94,14 +95,14 @@
                         <label for="email">Correo electrónico</label>
                         <input type="email" class="form-control" id="email_l" name="username" placeholder="Ingrese su correo electrónico">
                     </div>
-                    <div class="form-group">
+                    <div class="form-group password-container">
                         <label for="password">Contraseña</label>
                         <input type="password" class="form-control" id="password_l" name="password" placeholder="Ingrese su contraseña">
+                        <i class="fa fa-eye" id="togglePassword"></i>
                         <div class="text-center mb-2 mt-2 ">
                             <a href="">¿Olvidaste tu contraseña?</a>
                         </div>
                     </div>
-                    
                     
                     <div class="text-center mt-2">
                         <button type="submit" class="btn btn-block btn-primary ">Iniciar sesión</button>
@@ -111,7 +112,6 @@
         </div>
     </div>
 </div>
-
 <!-- Modal de contacto -->
 
 <div id="contactoModal" class="modal fade" tabindex="-1" role="dialog">
@@ -159,6 +159,16 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+          document.getElementById('togglePassword').addEventListener('click', function() {
+            var passwordField = document.getElementById('password_l');
+            var type = passwordField.type === 'password' ? 'text' : 'password';
+            passwordField.type = type;
+            this.classList.toggle('fa-eye');
+            this.classList.toggle('fa-eye-slash');
+        });
+    </script>
 </body>
 
 </html>

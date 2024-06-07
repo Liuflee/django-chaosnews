@@ -146,3 +146,4 @@ def registro(request):
     else:
         form = RegistroForm()
     return render(request, 'appchaosnews/registro.html', {'form': form})
+
