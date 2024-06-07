@@ -813,3 +813,52 @@ html.dark ::-webkit-scrollbar-thumb {
         background-color: #0056b3;
     }
 
+
+
+    .cke_top {
+        border-bottom: 1px solid #d1d1d1;
+        background: #ffffff;
+        padding: 6px 8px 2px;
+        white-space: normal;
+    }
+
+    .dark-mode .cke_top {
+        border-bottom: 1px solid #393939 !important;
+        background: #2c2c2c !important;
+    }
+
+    .dark-mode .cke_top .cke_button {
+        color: #fff !important;
+    }
+
+    .dark-mode .cke_chrome {
+        background: #2c2c2c !important;
+
+    }
+
+/* Cambiar el color de fondo del editor */
+.cke_editable {
+    background-color: #ff0000 !important;
+}
+
+/* Cambiar el color del texto */
+.cke_editable {
+    color: #333 !important;
+}
+
+.dark-mode .cke_editable {
+    background: #2c2c2c !important;
+    color: #fff !important;
+}
+/* Cambiar el color del borde */
+.cke_show_borders {
+    border-color: #ccc !important;
+}
+
+
+    .dark-mode .cke_editable {
+        background: #2c2c2c !important;
+        color: #fff !important;
+    }
+
+    
