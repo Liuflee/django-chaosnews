@@ -815,50 +815,157 @@ html.dark ::-webkit-scrollbar-thumb {
 
 
 
-    .cke_top {
-        border-bottom: 1px solid #d1d1d1;
-        background: #ffffff;
-        padding: 6px 8px 2px;
-        white-space: normal;
-    }
+.ck-rounded-corners .ck.ck-editor__main>.ck-editor__editable, .ck.ck-editor__main>.ck-editor__editable.ck-rounded-corners {
 
-    .dark-mode .cke_top {
-        border-bottom: 1px solid #393939 !important;
-        background: #2c2c2c !important;
-    }
-
-    .dark-mode .cke_top .cke_button {
-        color: #fff !important;
-    }
-
-    .dark-mode .cke_chrome {
-        background: #2c2c2c !important;
-
-    }
-
-/* Cambiar el color de fondo del editor */
-.cke_editable {
-    background-color: #ff0000 !important;
 }
 
-/* Cambiar el color del texto */
-.cke_editable {
-    color: #333 !important;
+.dark-mode .ck-rounded-corners .ck.ck-editor__main>.ck-editor__editable, .dark-mode .ck.ck-editor__main>.ck-editor__editable.ck-rounded-corners {
+    background-color: #393939;
+    color: #fff;
 }
 
-.dark-mode .cke_editable {
-    background: #2c2c2c !important;
-    color: #fff !important;
-}
-/* Cambiar el color del borde */
-.cke_show_borders {
-    border-color: #ccc !important;
+.ck.ck-toolbar {
+    background: var(--ck-color-toolbar-background);
+    border: 1px solid var(--ck-color-toolbar-border);
+    padding: 0 var(--ck-spacing-small);
 }
 
+.dark-mode .ck.ck-toolbar {
+    background: #393939;
+    border: 1px solid #444 !important;
+}
 
-    .dark-mode .cke_editable {
-        background: #2c2c2c !important;
-        color: #fff !important;
-    }
+.ck.ck-balloon-panel.ck-powered-by-balloon[class*=position_border] {
+    border: var(--ck-focus-ring);
+    border-color: var(--ck-powered-by-border-color);
+    display: none;
+}
 
-    
+.ck.ck-editor__main>.ck-editor__editable:not(.ck-focused) {
+    border-color: var(--ck-color-base-border);
+}
+
+.dark-mode .ck.ck-icon.ck-icon_inherit-color, .dark-mode .ck.ck-icon.ck-icon_inherit-color * {
+    color: rgb(255, 255, 255);
+    background: transparent;
+}
+
+.dark-mode .ck-reset_all :not(.ck-reset_all-excluded *), .dark-mode .ck.ck-reset_all {
+    color: rgb(255, 255, 255);
+    background-color: #393939;
+}
+
+.dark-mode .ck.ck-button:not(.ck-disabled):active, .dark-mode .ck.ck-button:not(.ck-disabled):active {
+    background-color: #393939;
+}
+
+.dark-mode .ck.ck-button:not(.ck-disabled):hover, .dark-mode .ck.ck-button:not(.ck-disabled):hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.dark-mode .ck.ck-button.ck-on, .dark-mode a.ck.ck-button.ck-on {
+    background: rgba(255, 255, 255, 0.1);
+    color: rgb(255, 255, 255);
+}
+
+.dark-mode .ck-list-styles-list {
+    color: rgb(255, 255, 255) ;
+    background-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+.dark-mode [dir=ltr] .ck.ck-button .ck-button__label, 
+.dark-mode [dir=ltr] a.ck.ck-button .ck-button__label {
+    text-align: left;
+    background-color: transparent;
+}
+
+/* hover para .dark-mode [dir=ltr] .ck.ck-button .ck-button__label, 
+.dark-mode [dir=ltr] a.ck.ck-button .ck-button__label {
+    text-align: left;
+    background-color: #2c2c2c;
+}
+
+
+ */
+
+.dark-mode .ck.ck-button:not(.ck-disabled):hover, .dark-mode .ck.ck-button:not(.ck-disabled):hover {
+    background: rgba(255, 255, 255, 0.1);
+
+}
+
+.ck.ck-splitbutton.ck-splitbutton_open>.ck-button:not(.ck-on):not(.ck-disabled):not(:hover), .ck.ck-splitbutton:hover>.ck-button:not(.ck-on):not(.ck-disabled):not(:hover) {
+    background: var(--ck-color-split-button-hover-background);
+}
+
+.dark-mode .ck.ck-splitbutton.ck-splitbutton_open>.ck-button:not(.ck-on):not(.ck-disabled):not(:hover), .dark-mode .ck.ck-splitbutton:hover>.ck-button:not(.ck-on):not(.ck-disabled):not(:hover) {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.ck.ck-button.ck-on:not(.ck-disabled):hover, a.ck.ck-button.ck-on:not(.ck-disabled):hover {
+    background: var(--ck-color-button-on-hover-background);
+}
+
+.dark-mode .ck.ck-button.ck-on:not(.ck-disabled):hover, .dark-mode a.ck.ck-button.ck-on:not(.ck-disabled):hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.ck.ck-list__item>.ck-button.ck-on {
+    /* background: var(--ck-color-list-button-on-background); */
+    color: var(--ck-color-list-button-on-text);
+}
+
+.dark-mode .ck.ck-list__item>.ck-button.ck-on {
+    background: rgba(255, 255, 255, 0.1);
+    color: rgb(255, 255, 255);
+}
+
+.ck.ck-list__item>.ck-button:hover:not(.ck-disabled) {
+    background: var(--ck-color-list-button-hover-background);
+}
+
+.dark-mode .ck.ck-list__item>.ck-button:hover:not(.ck-disabled) {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+
+.ck.ck-button:active, .ck.ck-button:focus, a.ck.ck-button:active, a.ck.ck-button:focus {
+    border: var(--ck-focus-ring);
+    box-shadow: var(--ck-focus-outer-shadow), 0 0;
+    outline: none;
+}
+
+.dark-mode .ck.ck-button:active, .dark-mode .ck.ck-button:focus, .dark-mode a.ck.ck-button:active, .dark-mode a.ck.ck-button:focus {
+    border: var(--ck-focus-ring);
+    box-shadow: none;
+    outline: none;
+}
+
+.ck.ck-input:focus {
+    border: var(--ck-focus-ring);
+    box-shadow: var(--ck-focus-outer-shadow), 0 0;
+    outline: none;
+}
+
+.dark-mode .ck.ck-input:focus {
+    border: var(--ck-focus-ring);
+    box-shadow: none;
+    outline: none;
+}
+
+.dark-mode .ck.ck-editor__top .ck-sticky-panel .ck-sticky-panel__content {
+    border: #444;
+}
+
+
+
+.dark-mode .ck.ck-editor__main>.ck-editor__editable:not(.ck-focused) {
+    border-color: #444 !important;
+}
+
+.dark-mode .ck.ck-editor__main>.ck-editor__editable.ck-focused {
+    border-color: #444 !important;
+}
+
+.ck-word-count {
+    display: none !important;
+}

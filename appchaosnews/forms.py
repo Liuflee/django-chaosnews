@@ -1,7 +1,7 @@
 from django import forms
 from .models import Noticia, Etiqueta
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
-from ckeditor.widgets import CKEditorWidget
+from django_ckeditor_5.widgets import CKEditor5Widget
 from django.contrib.auth.models import User
 
 class NoticiaForm(forms.ModelForm):
@@ -16,7 +16,7 @@ class NoticiaForm(forms.ModelForm):
         fields = ['titulo', 'contenido', 'imagen', 'etiquetas', 'en_carrusel']
         widgets = {
             'titulo': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Título de la noticia'}),
-            'contenido': CKEditorWidget(),  
+            'contenido': CKEditor5Widget(),  
             'imagen': forms.FileInput(attrs={'class': 'form-control-file'}),
             'en_carrusel': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
         }

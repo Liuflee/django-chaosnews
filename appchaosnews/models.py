@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from ckeditor.fields import RichTextField
+from django_ckeditor_5.fields import CKEditor5Field
 
 class Etiqueta(models.Model):
     nombre = models.CharField(max_length=50)
@@ -11,7 +12,7 @@ class Etiqueta(models.Model):
 class Noticia(models.Model):
     id = models.AutoField(primary_key=True)
     titulo = models.CharField(max_length=200)
-    contenido = RichTextField()  # Cambiado a RichTextField
+    contenido = CKEditor5Field()  # Cambiado a RichTextField
     imagen = models.ImageField(upload_to='images/')
     fecha_subida = models.DateTimeField(auto_now_add=True)
     autor = models.ForeignKey(User, on_delete=models.CASCADE)
