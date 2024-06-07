@@ -39,9 +39,13 @@ def detalle_noticia(request, noticia_id):
     noticias_relacionadas = Noticia.objects.filter(etiquetas__in=etiquetas).exclude(id=noticia_id).distinct()
     if noticias_relacionadas.count() > 3:
         noticias_relacionadas = sample(list(noticias_relacionadas), 3)
+
+    comentarios = noticia.comentarios.all().order_by('-fecha')
+
     context = {
         'noticia': noticia,
-        'noticias_relacionadas': noticias_relacionadas
+        'noticias_relacionadas': noticias_relacionadas,
+        'comentarios': comentarios
     }
     return render(request, 'appchaosnews/detalle_noticia.html', context)
 
@@ -123,7 +127,12 @@ def like_noticia(request, noticia_id):
     like, created = Like.objects.get_or_create(noticia=noticia, usuario=request.user)
     if not created:
         like.delete()
-    return JsonResponse({'likes_count': noticia.likes.count()})
+
+    # Comprobar si el usuario ha dado like o no
+    usuario_dio_like = noticia.likes.filter(usuario=request.user).exists()
+
+    return JsonResponse({'likes_count': noticia.likes.count(), 'usuario_dio_like': usuario_dio_like})
+
 
 
 @login_required

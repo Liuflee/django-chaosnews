@@ -684,3 +684,12 @@ html.dark ::-webkit-scrollbar-thumb {
     transform: translateY(-50%);
     cursor: pointer;
 }
+
+.liked {
+    background-color: red !important; /* Cambia "otro-color" por el color deseado */
+}
+
+
+#send-btn {
+    display: none;
+  }
