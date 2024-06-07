@@ -55,8 +55,10 @@
                 <img src="{% static 'images/login-icon.png' %}" class="icon login-icon" alt="">
                 {{ user.first_name|add:" "|add:user.last_name }}
               </a>
-              <div class="dropdown-menu" aria-labelledby="accountDropdown">
+              <div class="dropdown-menu dropdown-bg" aria-labelledby="accountDropdown">
+                {% if perms.appchaosnews.add_noticia %}
                   <a class="dropdown-item" href="{% url 'subir_noticia' %}">Subir Noticia</a>
+                {% endif %}
                   <a class="dropdown-item" href="{% url 'logout' %}">Cerrar sesión</a>
               </div>
           </li>

@@ -8,6 +8,7 @@
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
   <script src="{% static 'script.js' %}"></script>
+  <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
 </head>
 <body class="light-mode"> <!-- Asegúrate de tener la clase correcta para el modo oscuro -->
 
@@ -53,8 +54,10 @@
                 <img src="{% static 'images/login-icon.png' %}" class="icon login-icon" alt="">
                   {{ user.first_name|add:" "|add:user.last_name }}
               </a>
-              <div class="dropdown-menu" aria-labelledby="accountDropdown">
+              <div class="dropdown-menu dropdown-bg" aria-labelledby="accountDropdown">
+                {% if perms.appchaosnews.add_noticia %}
                   <a class="dropdown-item" href="{% url 'subir_noticia' %}">Subir Noticia</a>
+                {% endif %}
                   <a class="dropdown-item" href="{% url 'logout' %}">Cerrar sesión</a>
               </div>
           </li>
@@ -150,6 +153,7 @@
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
 <script>
   // Asegúrate de que este script para cambiar de modo esté disponible
   function toggleModo() {
@@ -163,7 +167,9 @@
     }
   }
 
-
+var editor = new Quill('.rich-text-editor', {
+    theme: 'snow'  // Puedes cambiar el tema según tus preferencias
+  });
   
 </script>
 </body>
