@@ -60,8 +60,7 @@ def subir_noticia(request):
         if form.is_valid():
             noticia = form.save(commit=False)
             noticia.autor = request.user
-            noticia.save()  # Guardar la noticia primero para asignarle un ID
-            # Procesar las etiquetas seleccionadas después de guardar la noticia
+            noticia.save()
             etiquetas_seleccionadas = form.cleaned_data['etiquetas']
             noticia.etiquetas.set(etiquetas_seleccionadas)
             return redirect('index')

@@ -16,7 +16,7 @@ class NoticiaForm(forms.ModelForm):
         fields = ['titulo', 'contenido', 'imagen', 'etiquetas', 'en_carrusel']
         widgets = {
             'titulo': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Título de la noticia'}),
-            'contenido': CKEditor5Widget(),  
+            "contenido": CKEditor5Widget(config_name="default"),  
             'imagen': forms.FileInput(attrs={'class': 'form-control-file'}),
             'en_carrusel': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
         }
@@ -24,6 +24,7 @@ class NoticiaForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['etiquetas'].queryset = Etiqueta.objects.all()
+        self.fields['contenido'].required = False
         
 class CustomAuthenticationForm(AuthenticationForm):
     username = forms.EmailField(widget=forms.EmailInput(attrs={'class': 'form-control'}), label="Correo electrónico")

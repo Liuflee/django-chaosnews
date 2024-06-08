@@ -814,11 +814,6 @@ html.dark ::-webkit-scrollbar-thumb {
     }
 
 
-
-.ck-rounded-corners .ck.ck-editor__main>.ck-editor__editable, .ck.ck-editor__main>.ck-editor__editable.ck-rounded-corners {
-
-}
-
 .dark-mode .ck-rounded-corners .ck.ck-editor__main>.ck-editor__editable, .dark-mode .ck.ck-editor__main>.ck-editor__editable.ck-rounded-corners {
     background-color: #393939;
     color: #fff;
@@ -838,7 +833,6 @@ html.dark ::-webkit-scrollbar-thumb {
 .ck.ck-balloon-panel.ck-powered-by-balloon[class*=position_border] {
     border: var(--ck-focus-ring);
     border-color: var(--ck-powered-by-border-color);
-    display: none;
 }
 
 .ck.ck-editor__main>.ck-editor__editable:not(.ck-focused) {
@@ -968,4 +962,10 @@ html.dark ::-webkit-scrollbar-thumb {
 
 .ck-word-count {
     display: none !important;
+}
+
+.ck.ck-balloon-panel.ck-powered-by-balloon[class*=position_border] {
+    border: var(--ck-focus-ring);
+    border-color: var(--ck-powered-by-border-color);
+    display: none;
 }

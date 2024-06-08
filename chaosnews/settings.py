@@ -76,6 +76,7 @@ customColorPalette = [
 
 #CKEDITOR_5_CUSTOM_CSS = 'path_to.css' 
 #CKEDITOR_5_FILE_STORAGE = "path_to_storage.CustomStorage" # optional
+
 CKEDITOR_5_CONFIGS = {
 'default': {
     'toolbar': ['heading', '|', 'bold', 'italic', 'link',
@@ -137,7 +138,7 @@ CKEDITOR_5_CONFIGS = {
 }
 }
 
-CKEDITOR_UPLOAD_PATH = "uploads/"
+
 
 
 MIDDLEWARE = [
