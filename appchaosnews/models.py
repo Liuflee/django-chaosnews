@@ -12,7 +12,7 @@ class Etiqueta(models.Model):
 class Noticia(models.Model):
     id = models.AutoField(primary_key=True)
     titulo = models.CharField(max_length=200)
-    contenido = CKEditor5Field('contenido', config_name='default')  # Cambiado a RichTextField
+    contenido = CKEditor5Field('contenido', config_name='extends')  # Cambiado a RichTextField
     imagen = models.ImageField(upload_to='images/')
     fecha_subida = models.DateTimeField(auto_now_add=True)
     autor = models.ForeignKey(User, on_delete=models.CASCADE)

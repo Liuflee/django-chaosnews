@@ -16,7 +16,7 @@ class NoticiaForm(forms.ModelForm):
         fields = ['titulo', 'contenido', 'imagen', 'etiquetas', 'en_carrusel']
         widgets = {
             'titulo': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Título de la noticia'}),
-            "contenido": CKEditor5Widget(config_name="default"),  
+            "contenido": CKEditor5Widget(config_name="extends"),  
             'imagen': forms.FileInput(attrs={'class': 'form-control-file'}),
             'en_carrusel': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
         }

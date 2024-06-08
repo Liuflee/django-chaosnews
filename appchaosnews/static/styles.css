@@ -969,3 +969,8 @@ html.dark ::-webkit-scrollbar-thumb {
     border-color: var(--ck-powered-by-border-color);
     display: none;
 }
+
+.dark-mode .ck-content .image figcaption {
+    background-color: #393939 !important;
+    color: #fff !important;
+}
