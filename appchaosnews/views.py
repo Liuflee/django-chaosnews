@@ -10,6 +10,8 @@ from django.db.models import Q
 from django.contrib.auth import logout
 from django.contrib.auth.forms import UserCreationForm
 
+from django.views.decorators.http import require_POST
+
 def index(request):
     noticias = Noticia.objects.all().order_by('-fecha_subida').exclude(en_carrusel=True)
     noticias_carrusel = Noticia.objects.filter(en_carrusel=True).order_by('-fecha_subida')
@@ -134,14 +136,31 @@ def like_noticia(request, noticia_id):
 
 
 
+
 @login_required
 def comentar_noticia(request, noticia_id):
     if request.method == 'POST':
         noticia = get_object_or_404(Noticia, id=noticia_id)
         contenido = request.POST.get('contenido')
-        Comentario.objects.create(noticia=noticia, usuario=request.user, contenido=contenido)
+        parent_id = request.POST.get('parent_id')
+        parent_comentario = None
+        if parent_id:
+            parent_comentario = Comentario.objects.get(id=parent_id)
+        Comentario.objects.create(noticia=noticia, usuario=request.user, contenido=contenido, parent=parent_comentario)
         return redirect('detalle_noticia', noticia_id=noticia_id)
     return redirect('detalle_noticia', noticia_id=noticia_id)
+
+
+
+@login_required
+@require_POST
+def like_comentario(request, comentario_id):
+    comentario = get_object_or_404(Comentario, id=comentario_id)
+    if comentario.likes.filter(id=request.user.id).exists():
+        comentario.likes.remove(request.user)
+    else:
+        comentario.likes.add(request.user)
+    return JsonResponse({'likes_count': comentario.likes.count(), 'comment_id': comentario.id})
 
 
 

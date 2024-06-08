@@ -17,6 +17,7 @@ urlpatterns = [
     path('buscar/', views.buscar_noticias, name='buscar_noticias'),
     path('noticia/<int:noticia_id>/like/', views.like_noticia, name='like_noticia'),
     path('noticia/<int:noticia_id>/comentar/', views.comentar_noticia, name='comentar_noticia'),
+    path('comentario/<int:comentario_id>/like/', views.like_comentario, name='like_comentario'),
 ]
 
 # notas

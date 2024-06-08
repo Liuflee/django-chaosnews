@@ -35,3 +35,8 @@ class Comentario(models.Model):
     usuario = models.ForeignKey(User, on_delete=models.CASCADE)
     contenido = models.TextField()
     fecha = models.DateTimeField(auto_now_add=True)
+    parent = models.ForeignKey('self', null=True, blank=True, related_name='replies', on_delete=models.CASCADE)
+    likes = models.ManyToManyField(User, related_name='comentario_likes', blank=True)
+
+    def __str__(self):
+        return f'Comentario de {self.usuario.username} en {self.noticia.titulo}'
