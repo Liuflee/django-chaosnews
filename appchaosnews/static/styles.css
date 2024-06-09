@@ -274,7 +274,7 @@ html.dark ::-webkit-scrollbar-thumb {
 }
 
 .comment-area {
-    border-radius: 5px;
+    border-radius: 10px;
     background-color: #fff;
     border: 1px groove #dbdbdb;
     resize: none;
@@ -939,9 +939,6 @@ html.dark ::-webkit-scrollbar-thumb {
     
 }
 
-.parent-comment {
-    margin-bottom: 10px;
-}
 
 .comment-header {
     margin-bottom: 5px;
@@ -1034,17 +1031,28 @@ html.dark ::-webkit-scrollbar-thumb {
     outline: 0;
     box-shadow: none !important; ;
 }
+
+
+.btn-toggle-replies {
+    color: #007bff;
+    background-color: transparent !important;
+    outline: none !important;
+    margin-left: 30px;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.btn-toggle-replies:hover {
+    color: #0056b3;
+}
+
 .dark-mode .btn-toggle-replies {
-    color: #fff;
+    color: #0056b3;
     background-color: transparent !important;
     outline: none !important;
 }
 
 .dark-mode .btn-toggle-replies:hover {
-    color: #0056b3;
-}
-
-.btn-toggle-replies:hover {
     color: #007bff;
 }
 

@@ -33,7 +33,15 @@
     </form>
     <!-- Botón para mostrar más comentarios (condicional) -->
     {% if comment.replies.count > 0 %}
-    <button class="btn btn-toggle-replies" onclick="toggleReplies('{{ comment.id }}')">Ver más comentarios</button>
+    {% if comment.replies.count == 1 %}
+    <button class="btn btn-toggle-replies" data-comment-id="{{ comment.id }}" data-replies-count="{{ comment.replies.count }}" onclick="toggleReplies('{{ comment.id }}')">
+        <i class="fa-solid fa-chevron-down"></i> {{ comment.replies.count }} respuesta
+    </button>
+    {% else %}
+    <button class="btn btn-toggle-replies" data-comment-id="{{ comment.id }}" data-replies-count="{{ comment.replies.count }}" onclick="toggleReplies('{{ comment.id }}')">
+        <i class="fa-solid fa-chevron-down"></i> {{ comment.replies.count }} respuestas
+    </button>
+    {% endif %}
     {% endif %}
     <!-- Comentarios anidados (inicialmente ocultos) -->
     <div id="replies-{{ comment.id }}" class="replies" style="display: none;">
@@ -81,6 +89,7 @@
 
 <script>
 
+
 document.addEventListener('DOMContentLoaded', function() {
     var replyForms = document.querySelectorAll('.comment-reply-area');
 
@@ -103,13 +112,19 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function toggleReplies(commentId) {
-        var replies = document.getElementById('replies-' + commentId);
-        if (replies.style.display === 'none') {
-            replies.style.display = 'block';
-        } else {
-            replies.style.display = 'none';
-        }
+    var replies = document.getElementById('replies-' + commentId);
+    var toggleButton = document.querySelector('.btn-toggle-replies[data-comment-id="' + commentId + '"]');
+    var repliesCount = parseInt(toggleButton.getAttribute('data-replies-count'));
+
+    if (replies.style.display === 'none') {
+        replies.style.display = 'block';
+        toggleButton.innerHTML = '<i class="fa-solid fa-chevron-up"></i> ' + repliesCount + (repliesCount > 1 ? ' respuestas' : ' respuesta');
+    } else {
+        replies.style.display = 'none';
+        toggleButton.innerHTML = '<i class="fa-solid fa-chevron-down"></i> ' + repliesCount + (repliesCount > 1 ? ' respuestas' : ' respuesta');
     }
+}
+
 
     document.querySelectorAll('.btn-like').forEach(button => {
         button.addEventListener('click', function() {

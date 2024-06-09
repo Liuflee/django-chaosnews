@@ -40,3 +40,4 @@ class Comentario(models.Model):
 
     def __str__(self):
         return f'Comentario de {self.usuario.username} en {self.noticia.titulo}'
+    
