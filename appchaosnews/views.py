@@ -9,6 +9,7 @@ from django.urls import reverse
 from django.db.models import Q
 from django.contrib.auth import logout
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
 
 from django.views.decorators.http import require_POST
 
@@ -175,19 +176,26 @@ def registro(request):
     return render(request, 'appchaosnews/registro.html', {'form': form})
 
 
-def upload_profile_picture(request):
-    user = request.user
+def upload_profile_picture(request, user_id=None):
+    if user_id:
+        user = get_object_or_404(User, id=user_id)
+    else:
+        user = request.user
+    
     if request.method == 'POST':
         profile_form = ProfilePictureForm(request.POST, request.FILES, instance=user.userprofile)
         user_form = UserProfileForm(request.POST, instance=user)
         if profile_form.is_valid() and user_form.is_valid():
             profile = profile_form.save(commit=False)
             user = user_form.save()
-            if 'profile_picture' in request.FILES:  # Verifica si se ha cargado una imagen de perfil
+            if 'profile_picture' in request.FILES:
                 profile.save()
-            return redirect('index')  # Redirige a la página de perfil del usuario
+            # Actualiza la descripción del usuario
+            user.userprofile.descripcion = request.POST.get('descripcion')
+            user.save()
+            return redirect('index')
     else:
         profile_form = ProfilePictureForm(instance=user.userprofile)
         user_form = UserProfileForm(instance=user)
-    return render(request, 'appchaosnews/perfil.html', {'profile_form': profile_form, 'user_form': user_form})
-
+    
+    return render(request, 'appchaosnews/perfil.html', {'profile_form': profile_form, 'user_form': user_form, 'user': user})

@@ -1,8 +1,11 @@
+<!-- comment.html -->
 <div class="comment">
     <!-- Comentario principal -->
     <div class="parent-comment">
         <div class="comment-header">
-            <img src="{{ comentario.usuario.userprofile.profile_picture.url }}" alt="{{ comment.usuario.username }}" class="comment-user-image">
+            <a href="{% url 'perfil_with_id' comment.usuario.id %}">
+                <img src="{{ comment.usuario.userprofile.profile_picture.url }}" alt="{{ comment.usuario.username }}" class="comment-user-image">
+            </a>
             <div class="comment-details">
                 <strong>{{ comment.usuario.username }}</strong>
                 <small class="text-muted">{{ comment.fecha }}</small>
@@ -49,7 +52,9 @@
         <div class="child">
             <div class="parent-comment">
                 <div class="comment-header">
-                    <img src="{{ reply.usuario.userprofile.profile_picture.url }}" alt="{{ reply.usuario.username }}" class="comment-user-image">
+                    <a href="{% url 'perfil_with_id' reply.usuario.id %}">
+                        <img src="{{ reply.usuario.userprofile.profile_picture.url }}" alt="{{ reply.usuario.username }}" class="comment-user-image">
+                    </a>
                     <div class="comment-details">
                         <strong>{{ reply.usuario.username }}</strong>
                         <small class="text-muted">{{ reply.fecha }}</small>
@@ -82,6 +87,7 @@
         {% endfor %}
     </div>
 </div>
+
 
 <style>
 

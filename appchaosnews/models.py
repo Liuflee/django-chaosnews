@@ -9,6 +9,7 @@ from django.dispatch import receiver
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     profile_picture = models.ImageField(upload_to='profile_pictures/', default='profile_pictures/default.png', blank=True, null=True)
+    descripcion = models.TextField(blank=True, null=True)  # Campo de descripción
 
     def __str__(self):
         return self.user.username + ' Profile'

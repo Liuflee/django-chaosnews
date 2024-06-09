@@ -45,9 +45,10 @@ class ProfilePictureForm(forms.ModelForm):
 
 
 class UserProfileForm(UserChangeForm):
-    first_name = forms.CharField(max_length=30, required=True, help_text='Required. Nombre')
-    last_name = forms.CharField(max_length=30, required=True, help_text='Required. Apellido')
-    email = forms.EmailField(max_length=254, help_text='Required. Inform a valid email address.')
+    first_name = forms.CharField(max_length=30, required=True, help_text='')
+    last_name = forms.CharField(max_length=30, required=True, help_text='')
+    email = forms.EmailField(max_length=254, help_text='')
+    
 
     class Meta:
         model = UserProfile

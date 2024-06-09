@@ -1215,3 +1215,8 @@ html.dark ::-webkit-scrollbar-thumb {
     margin-left: 70px;
   }
   
+
+ .dark-mode .list-group-item {
+    background-color: #2c2c2c;
+    color: #fff;
+}
