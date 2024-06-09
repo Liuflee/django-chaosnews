@@ -1129,3 +1129,89 @@ html.dark ::-webkit-scrollbar-thumb {
 .img-navbar {
     height: 2rem;
 }
+
+.icon-mode-dark {
+    display: none !important;
+}
+
+.dark-mode .icon-mode-dark {
+    display: inline-block !important;
+}
+
+.dark-mode .icon-mode {
+    display: none !important;
+}
+
+
+.navbar-main {
+    border-radius: 15px;
+}
+
+.navbar-main:hover {
+    background-color: #007bff;
+    color: #fff;
+    transition: ease-in-out 0.1s;
+    
+}
+
+.dark-mode .navbar-main {
+    color: #fff !important;
+}
+
+.dark-mode .navbar-main:hover {
+    background-color: #0056b3;
+}
+
+.main-active {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.dark-mode .main-active {
+    background-color: #0056b3;
+}
+
+@media (max-width:992px) {
+    .navbar-main {
+        border-radius: 10px;
+        padding: 5px;
+        margin: 0;
+    }
+
+    .media-account {
+        display: inline-block !important;
+    }
+
+    .account {
+        display: none;
+    }
+
+    .navbar-brand {
+        margin-left: 5px;
+    }
+}
+
+
+
+.comment-input-wrapper {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px; /* Espacio entre la imagen y el textarea */
+  }
+  
+  .comment-user-image {
+    width: 50px; /* Ajusta según el tamaño que desees para la imagen */
+    height: 50px; /* Asegúrate de que el ancho y alto sean iguales para una imagen cuadrada */
+    border-radius: 50%; /* Para que la imagen sea circular */
+  }
+  
+  .comment-area {
+    flex: 1;
+    resize: none;
+  }
+  
+  .send-btn-wrapper {
+    margin-top: 10px; /* Ajusta este margen según sea necesario */
+    margin-left: 70px;
+  }
+  
