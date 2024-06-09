@@ -154,14 +154,20 @@ body.dark-mode {
     color: #fff;
 }
 
+.navbar {
+    border-bottom: 1px solid #dbdbdb;
+}
+
 .dark-mode .navbar {
     background-color: #242424;
     color: #fff;
+    border-bottom: 1px solid #393939;
 }
 
   
 .navbar-brand {
     color: #333;
+    margin-right: 10px;
 }
 
 .dark-mode .navbar-brand {
@@ -492,7 +498,8 @@ html.dark ::-webkit-scrollbar-thumb {
     height: 1.5rem;
     width: 1.5rem;
     margin-right: 5px;
-    margin-bottom: 4px;
+    margin-bottom: 5px;
+
 }
 
 .light-mode .modal-bg {
@@ -1105,4 +1112,20 @@ html.dark ::-webkit-scrollbar-thumb {
 
 .dark-mode .comment-reply-area:focus {
     border-color: #0056b3;
+}
+
+.profile-icon {
+    border-radius: 50%;
+    height: 2rem;
+    width: 2rem;
+}
+
+@media (max-width: 768px) {
+    .profile-icon {
+        height: 1.5rem;
+        width: 1.5rem;
+    }
+}
+.img-navbar {
+    height: 2rem;
 }

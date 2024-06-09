@@ -1,6 +1,6 @@
 from django import forms
-from .models import Noticia, Etiqueta
-from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from .models import Noticia, Etiqueta, UserProfile
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, UserChangeForm
 from django_ckeditor_5.widgets import CKEditor5Widget
 from django.contrib.auth.models import User
 
@@ -37,3 +37,28 @@ class RegistroForm(UserCreationForm):
     class Meta:
         model = User
         fields = ('username', 'first_name', 'last_name', 'email', 'password1', 'password2')
+
+class ProfilePictureForm(forms.ModelForm):
+    class Meta:
+        model = UserProfile
+        fields = ['profile_picture']
+
+
+class UserProfileForm(UserChangeForm):
+    first_name = forms.CharField(max_length=30, required=True, help_text='Required. Nombre')
+    last_name = forms.CharField(max_length=30, required=True, help_text='Required. Apellido')
+    email = forms.EmailField(max_length=254, help_text='Required. Inform a valid email address.')
+
+    class Meta:
+        model = UserProfile
+        fields = ['first_name', 'last_name', 'email']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # Elimina el campo de contraseña, ya que no queremos que se modifique desde este formulario
+        self.fields.pop('password')
+
+    def clean_username(self):
+        username = self.cleaned_data.get('username')
+        # Validar el nombre de usuario aquí si es necesario
+        return username
