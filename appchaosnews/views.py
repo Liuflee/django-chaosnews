@@ -193,9 +193,9 @@ def upload_profile_picture(request, user_id=None):
             # Actualiza la descripción del usuario
             user.userprofile.descripcion = request.POST.get('descripcion')
             user.save()
-            return redirect('index')
+            return redirect('perfil')
     else:
         profile_form = ProfilePictureForm(instance=user.userprofile)
         user_form = UserProfileForm(instance=user)
     
-    return render(request, 'appchaosnews/perfil.html', {'profile_form': profile_form, 'user_form': user_form, 'user': user})
+    return render(request, 'appchaosnews/perfil.html', {'profile_form': profile_form, 'user_form': user_form, 'user_p': user})

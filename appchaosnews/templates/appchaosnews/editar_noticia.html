@@ -55,6 +55,8 @@
                 <span class="d-md-none" style="font-size: 16px;">{{ user.first_name|add:" "|add:user.last_name }}</span>
               </a>
               <div class="dropdown-menu dropdown-bg dropdown-menu-right" aria-labelledby="accountDropdown">
+                <a class="dropdown-item navbar-main" href="{% url 'perfil' %}">
+                  <i class="fa-solid fa-user mr-2"></i>  Mi perfil</a>
                 {% if perms.appchaosnews.add_noticia %}
                   <a class="dropdown-item navbar-main" href="{% url 'subir_noticia' %}">
                     <i class="fa-solid fa-upload mr-2"></i>  Subir Noticia</a>

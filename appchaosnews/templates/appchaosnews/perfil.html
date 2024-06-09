@@ -58,6 +58,8 @@
                   <span class="d-md-none" style="font-size: 16px;">{{ user.first_name|add:" "|add:user.last_name }}</span>
                 </a>
                 <div class="dropdown-menu dropdown-bg dropdown-menu-right" aria-labelledby="accountDropdown">
+                  <a class="dropdown-item navbar-main" href="{% url 'perfil' %}">
+                    <i class="fa-solid fa-user mr-2"></i>  Mi perfil</a>
                   {% if perms.appchaosnews.add_noticia %}
                     <a class="dropdown-item navbar-main" href="{% url 'subir_noticia' %}">
                       <i class="fa-solid fa-upload mr-2"></i>  Subir Noticia</a>
@@ -109,10 +111,9 @@
     <div class="row">
         <div class="col-md-4">
             <div class="card mb-4 shadow-sm">
-                <img src="{{ user.userprofile.profile_picture.url }}" class="card-img-top" alt="Profile Picture">
-                <div class="card-body">
-                    <h5 class="card-title">{{ username }}</h5>
-                    <p class="card-text">{{ user.userprofile.descripcion }}</p>
+                <img src="{{ user_p.userprofile.profile_picture.url }}" class="card-img-top" alt="Profile Picture">
+                <div class="card-body" >
+                    <h5>{{ user_p.username }}</h5>
                 </div>
             </div>
         </div>
@@ -121,21 +122,21 @@
                 <div class="card-body">
                     
                     <!-- si el usario es el mismo se muestra el formulario de edición-->
-                    {% if request.user == user %}
-                    <h5 class="card-title">Editar Perfil</h5>
+                    {% if request.user == user_p %}
+                    <h5>Editar Perfil</h5>
                         <form method="POST" enctype="multipart/form-data">
                             {% csrf_token %}
                             <div class="form-group">
                                 <label for="id_first_name">Nombre</label>
-                                <input type="text" class="form-control" id="id_first_name" name="first_name" value="{{ user.first_name }}">
+                                <input type="text" class="form-control" id="id_first_name" name="first_name" value="{{ user_p.first_name }}">
                             </div>
                             <div class="form-group">
                                 <label for="id_last_name">Apellido</label>
-                                <input type="text" class="form-control" id="id_last_name" name="last_name" value="{{ user.last_name }}">
+                                <input type="text" class="form-control" id="id_last_name" name="last_name" value="{{ user_p.last_name }}">
                             </div>
                             <div class="form-group">
                                 <label for="id_email">Correo electrónico</label>
-                                <input type="email" class="form-control" id="id_email" name="email" value="{{ user.email }}">
+                                <input type="email" class="form-control" id="id_email" name="email" value="{{ user_p.email }}">
                             </div>
                             <div class="form-group">
                                 <label for="profile_picture">Foto de perfil</label>
@@ -143,18 +144,60 @@
                             </div>
                             <div class="form-group
                                 <label for="descripcion">Descripción</label>
-                                <textarea class="form-control" id="descripcion" name="descripcion" rows="3">{{ user.userprofile.descripcion }}</textarea>
+                                <textarea class="form-control" id="descripcion" name="descripcion" rows="3">{{ user_p.userprofile.descripcion }}</textarea>
                             </div>
                             <button type="submit" class="btn btn-primary">Guardar</button>
                         </form>
                     {% else %}
-                    <h5 class="card-title">Noticias de {{ user.username }}</h5>
+                        <!-- si el usuario no es el mismo se muestra la información del perfil -->
+                        <h5 class="card-title" style="margin-bottom: 10px;">{{ user_p.first_name }} {{ user_p.last_name }}</h5>
+                        <p class="card-text">{{ user_p.userprofile.descripcion }}</p>
+
+                        <!-- fecha de registro -->
+                        <p class="card-text"><small class="text-muted">Miembro desde {{ user_p.date_joined|date:"d/m/Y" }}</small></p>
+                        <!-- cantidad de comentarios -->
+                        <p class="card-text"><small class="text-muted">Comentarios: {{ user_p.comentario_set.count }}</small></p>
+
                     {% endif %}
 
                 </div>
             </div>
         </div>
     </div>
+</div>
+
+
+<div id="contactoModal" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content modal-bg"> <!-- Añade la clase dark-mode-bg al modal -->
+      <div class="modal-header">
+        <h5 class="modal-title">Contáctanos</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <i class="fas fa-xmark"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <h1 class="text-center">Contáctanos</h1>
+        <p class="text-center">¡Estamos aquí para ayudarte! Completa el siguiente formulario y nos pondremos en contacto contigo lo antes posible.</p>
+
+        <form action="enviar.php" method="post">
+          <div class="form-group mt-5">
+            <input type="text" class="form-control form-control-sm" id="nombre" name="nombre" placeholder="Nombre" required>
+          </div>
+          <div class="form-group">
+            <input type="email" class="form-control form-control-sm" id="email" name="email" placeholder="Correo electrónico" required>
+          </div>
+          <div class="form-group">
+            <textarea class="form-control form-control-sm" id="mensaje" name="mensaje" rows="5" placeholder="Mensaje" required></textarea>
+          </div>
+          <div class="text-center">
+            <button type="submit" class="btn btn-tr btn-modal">
+              <i class="fas fa-paper-plane"></i> Enviar mensaje</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
 </div>
 
 <!-- scripts de bootstrap y jquery -->
