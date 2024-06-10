@@ -316,7 +316,6 @@ STATICFILES_DIRS = [
     BASE_DIR / "appchaosnews/static",
 ]
 
-
 # Solo para producción
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
