@@ -969,6 +969,9 @@ html.dark ::-webkit-scrollbar-thumb {
     color: #fff !important;
 }
 
+.dark-mode .ck-source-editing-area textarea:not([readonly]):focus {
+    background-color: #393939 !important;
+}
 
 
 .comment {

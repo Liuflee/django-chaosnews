@@ -198,7 +198,9 @@
           <button type="submit" class="btn" id="send-btn">
             <i class="fas fa-paper-plane"></i> Enviar
           </button>
+        </div>
           {% else %}
+
           <div class="text-center">
             <a href="{% url 'login' %}">
               <p>Inicia sesión para comentar</p>
@@ -207,7 +209,7 @@
           </div>
           
           {% endif %}
-        </div>
+        
       </div>
     </div>
   </form>
