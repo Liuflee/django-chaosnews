@@ -29,6 +29,7 @@ class NoticiaForm(forms.ModelForm):
 class CustomAuthenticationForm(AuthenticationForm):
     username = forms.EmailField(widget=forms.EmailInput(attrs={'class': 'form-control'}), label="Correo electrónico")
 
+
 class RegistroForm(UserCreationForm):
     first_name = forms.CharField(max_length=30, required=True, help_text='Required. Nombre')
     last_name = forms.CharField(max_length=30, required=True, help_text='Required. Apellido')

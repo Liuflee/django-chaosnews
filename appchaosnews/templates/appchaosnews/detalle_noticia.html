@@ -106,15 +106,9 @@
           {% endif %}
     </div>
 </nav>
-
-
-
-
 </div>
 
 <!-- Contenido de la noticia en detalle -->
-
-
 <div class="container mt-4">
   <div class="row justify-content-left ">
     <div class="col-lg-8">
@@ -138,55 +132,56 @@
     
 
 
-      <!-- Imagen de la noticia -->
-      <hr class="hrxd">
-      <div class="text-center mb-2">
-        <img src="{{ noticia.imagen.url }}" class="img-fluid" alt="{{ noticia.titulo }}">
-      </div>
-      
-      <!-- Etiquetas de categoría -->
-      <div class="mb-3">
-        {% for etiqueta in noticia.etiquetas.all %}
-        <span class="badge badge-modern badge-tag text-light">
-          <i class="fas fa-tag"></i> {{ etiqueta }}
-        </span> 
-        {% endfor %}
-        <hr class="hrxd">
-        
-      </span>
-      </div>
+<!-- Imagen de la noticia -->
+<hr class="hrxd">
+<div class="text-center mb-2">
+  <img src="{{ noticia.imagen.url }}" class="img-fluid" alt="{{ noticia.titulo }}">
+</div>
+
+<!-- Etiquetas de categoría -->
+<div class="mb-3">
+  {% for etiqueta in noticia.etiquetas.all %}
+  <span class="badge badge-modern badge-tag text-light">
+    <i class="fas fa-tag"></i> {{ etiqueta }}
+  </span> 
+  {% endfor %}
+  <hr class="hrxd">
+  
+</span>
+</div>
+
+  <!-- Contenido de la noticia -->
+<div class="ck ck-content">
+    {{ noticia.contenido|safe}}
+</div>
 
 
-      <!-- Contenido de la noticia -->
-      <div class="ck ck-content">
-        {{ noticia.contenido|safe}}
-    </div>
+<!-- Like, compartir y comentarios -->
+
+<!-- Boton de like y comentar -->
+<hr class="hrxd">
+<div class="d-flex justify-content-between">
 
 
-      <!-- Like, compartir y comentarios -->
+  <div class="d-flex">
+    <button class="btn btn-sm btn-tr mr-2" id="like-button" data-url="{% url 'like_noticia' noticia.id %}">
+      <i class="fas fa-thumbs-up"></i>  <span id="likes-count">{{ noticia.likes.count }}</span>
+  </button>
+  
+  </div>
 
-      <!-- Boton de like y comentar -->
-      <hr class="hrxd">
-      <div class="d-flex justify-content-between">
+    <!-- Botón para compartir en redes sociales -->
+  <div class="d-flex">
+      <button class="btn btn-sm btn-tr">
+        <i class="fas fa-share"></i> Compartir
+      </button>
 
-
-        <div class="d-flex">
-          <button class="btn btn-sm btn-tr mr-2" id="like-button" data-url="{% url 'like_noticia' noticia.id %}">
-            <i class="fas fa-thumbs-up"></i>  <span id="likes-count">{{ noticia.likes.count }}</span>
-        </button>
-        
-        </div>
-
-          <!-- Botón para compartir en redes sociales -->
-        <div class="d-flex">
-            <button class="btn btn-sm btn-tr">
-              <i class="fas fa-share"></i> Compartir
-            </button>
- 
-        </div>
+  </div>
 
 
-      </div>
+</div>
+
+
  <!-- Sección de comentarios -->
 {% block content %}
 <div id="comment-section" class="mt-4">
@@ -195,12 +190,23 @@
     {% csrf_token %}
     <div class="form-group mb-3">
       <div class="comment-input-wrapper">
+        {% if user.is_authenticated %}
         <img src="{{ user.userprofile.profile_picture.url }}" alt="{{ user.username }}" class="comment-user-image">
+        
         <textarea name="contenido" class="comment-area" id="comment-area" placeholder="Haz un comentario" rows="4" required></textarea>
         <div class="send-btn-wrapper text-right">
           <button type="submit" class="btn" id="send-btn">
             <i class="fas fa-paper-plane"></i> Enviar
           </button>
+          {% else %}
+          <div class="text-center">
+            <a href="{% url 'login' %}">
+              <p>Inicia sesión para comentar</p>
+            </a>
+            
+          </div>
+          
+          {% endif %}
         </div>
       </div>
     </div>
@@ -218,14 +224,9 @@
     {% endif %}
   </div>
 </div>
-
 {% endblock %}
 
-
-      
-
-    </div>
-
+</div>
 
     <!-- Noticias relacionadas -->
 {% if noticias_relacionadas %}
@@ -245,10 +246,6 @@
     </div>
 </div>
 {% endif %}
-
-
-
-
 
 
   </div>
@@ -309,6 +306,7 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script>
 
+  // Función para el efecto de las noticias relacionadas
   function stickyOtherNews() {
   var otherNews = document.querySelector('.other-news');
   var otherNewsOffset = otherNews.offsetTop;
@@ -318,7 +316,12 @@
         otherNews.classList.remove('sticky');
     }
   }
-    document.getElementById('like-button').addEventListener('click', function() {
+
+  // Agregar un event listener para detectar el desplazamiento de la página
+  window.addEventListener('scroll', stickyOtherNews);
+
+  // Event listener para el botón de like
+  document.getElementById('like-button').addEventListener('click', function() {
     var url = this.getAttribute('data-url');
     fetch(url, {
       method: 'POST',
@@ -333,11 +336,7 @@
     });
   });
 
-
-  // Agregar un event listener para detectar el desplazamiento de la página
-  window.addEventListener('scroll', stickyOtherNews);
-
-
+  //Función para el tamaño del textarea del comentario principal
   document.addEventListener('DOMContentLoaded', function() {
     var textarea = document.getElementById('comment-area');
 
@@ -363,8 +362,8 @@
     });
 });
 
-
-document.addEventListener('DOMContentLoaded', function() {
+  //Función para mostrar el botón de enviar al enfocar el área de comentario
+  document.addEventListener('DOMContentLoaded', function() {
     var commentArea = document.getElementById('comment-area');
     var sendButtonWrapper = document.querySelector('.send-btn-wrapper');
 
@@ -388,9 +387,8 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-
-
-$(document).ready(function(){
+ // Función para enviar el formulario de comentarios
+  $(document).ready(function(){
   $('#comment-form').submit(function(event){
     event.preventDefault();
     
@@ -415,19 +413,49 @@ $(document).ready(function(){
   });
 });
 
-$(document).ready(function() {
-    // Seleccionar el área de comentario
-    var commentInput = $('#comment-area');
+  // Función para manejar el formulario de las respuestas.
+  $(document).ready(function(){
 
-    // Cuando el formulario de comentario se envía
-    $('#comment-form').submit(function(event) {
-      event.preventDefault();
+    $('.reply-form').submit(function(event){
+        event.preventDefault();
+        
+        var form = $(this);
+        var actionUrl = form.attr('action');
+        var formData = form.serialize();
+        
+        $.post(actionUrl, formData, function(response){
 
-      // Hacer scroll hasta el área de comentario
-      commentInput.focus();
+            var parentId = form.find('input[name="parent_id"]').val();
+            $('#replies-' + parentId).html($(response).find('#replies-' + parentId).html());
+
+            var newReplyCount = $(response).find('.btn-toggle-replies[data-comment-id="' + parentId + '"]').data('replies-count');
+            console.log("New reply count:", newReplyCount);
+
+            var replyButton = $('#reply-count-' + parentId).find('.btn-toggle-replies');
+            replyButton.data('replies-count', newReplyCount);
+
+            if (newReplyCount == 1) {
+                replyButton.html('<i class="fa-solid fa-chevron-down"></i> ' + newReplyCount + ' respuesta');
+            } else {
+                replyButton.html('<i class="fa-solid fa-chevron-down"></i> ' + newReplyCount + ' respuestas');
+            }
+
+ 
+            form.find('textarea').val('');
+        }).fail(function(){
+            console.log("Error al enviar la respuesta.");
+        });
     });
-  });
+  
 
+    window.toggleReplyForm = function(commentId) {
+        $('#reply-form-' + commentId).toggle();
+    }
+
+    window.toggleReplies = function(commentId) {
+        $('#replies-' + commentId).toggle();
+    }
+});
 
 
 </script>

@@ -1,17 +1,22 @@
+{% load custom_filters %}
+
 <!-- comment.html -->
-<div class="comment">
+<div class="comment" id="area-comentario">
+    
     <!-- Comentario principal -->
     <div class="parent-comment">
+
         <div class="comment-header">
             <a href="{% url 'perfil_with_id' comment.usuario.id %}">
                 <img src="{{ comment.usuario.userprofile.profile_picture.url }}" alt="{{ comment.usuario.username }}" class="comment-user-image">
             </a>
             <div class="comment-details">
                 <strong>{{ comment.usuario.username }}</strong>
-                <small class="text-muted">{{ comment.fecha }}</small>
+                <small class="text-muted">{{ comment.fecha|human_readable_time }}</small>
             </div>
         </div>
         <p>{{ comment.contenido }}</p>
+
         <!-- Botón de like y botón de respuesta -->
         <div class="comment-actions">
             <button class="btn-like" data-url="{% url 'like_comentario' comment.id %}">
@@ -19,7 +24,9 @@
             </button>
             <button class="btn-reply" onclick="toggleReplyForm('{{ comment.id }}')">Responder</button>
         </div>
+
     </div>
+
     <!-- Formulario de respuesta al comentario padre (siempre visible) -->
     <form id="reply-form-{{ comment.id }}" class="reply-form" style="display: none;" method="post" action="{% url 'comentar_noticia' comment.noticia.id %}">
         {% csrf_token %}
@@ -34,8 +41,10 @@
             </button>
         </div>
     </form>
-    <!-- Botón para mostrar más comentarios (condicional) -->
-    {% if comment.replies.count > 0 %}
+
+    <!-- Botón para mostrar más comentarios (solo si hay) -->
+{% if comment.replies.count > 0 %}
+<div id="reply-count-{{ comment.id }}">
     {% if comment.replies.count == 1 %}
     <button class="btn btn-toggle-replies" data-comment-id="{{ comment.id }}" data-replies-count="{{ comment.replies.count }}" onclick="toggleReplies('{{ comment.id }}')">
         <i class="fa-solid fa-chevron-down"></i> {{ comment.replies.count }} respuesta
@@ -45,7 +54,9 @@
         <i class="fa-solid fa-chevron-down"></i> {{ comment.replies.count }} respuestas
     </button>
     {% endif %}
-    {% endif %}
+</div>
+{% endif %}
+
     <!-- Comentarios anidados (inicialmente ocultos) -->
     <div id="replies-{{ comment.id }}" class="replies" style="display: none;">
         {% for reply in comment.replies.all %}
@@ -57,7 +68,7 @@
                     </a>
                     <div class="comment-details">
                         <strong>{{ reply.usuario.username }}</strong>
-                        <small class="text-muted">{{ reply.fecha }}</small>
+                        <small class="text-muted">{{ reply.fecha|human_readable_time }}</small>
                     </div>
                 </div>
                 <p>{{ reply.contenido }}</p>
@@ -86,12 +97,16 @@
         </div>
         {% endfor %}
     </div>
+
 </div>
 
 
 <style>
 
 </style>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 
 <script>
 
@@ -149,4 +164,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 .catch(error => console.error('Error:', error));
         });
     });
+
+
+
+
+
 </script>

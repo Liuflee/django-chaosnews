@@ -18,8 +18,8 @@ urlpatterns = [
     path('noticia/<int:noticia_id>/like/', views.like_noticia, name='like_noticia'),
     path('noticia/<int:noticia_id>/comentar/', views.comentar_noticia, name='comentar_noticia'),
     path('comentario/<int:comentario_id>/like/', views.like_comentario, name='like_comentario'),
-    path('perfil/', views.upload_profile_picture, name='perfil'),
-    path('perfil/<int:user_id>/', views.upload_profile_picture, name='perfil_with_id'),  # Agrega esta línea
+    path('perfil/', views.subir_perfil, name='perfil'),
+    path('perfil/<int:user_id>/', views.subir_perfil, name='perfil_with_id'),  # Agrega esta línea
 ]
 
 # notas

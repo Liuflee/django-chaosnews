@@ -176,7 +176,7 @@ def registro(request):
     return render(request, 'appchaosnews/registro.html', {'form': form})
 
 
-def upload_profile_picture(request, user_id=None):
+def subir_perfil(request, user_id=None):
     if user_id:
         user = get_object_or_404(User, id=user_id)
     else:
