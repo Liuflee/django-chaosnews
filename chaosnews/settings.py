@@ -148,6 +148,7 @@ CKEDITOR_5_CONFIGS = {
             "removeFormat",
             "insertTable",
             "sourceEditing",
+            "Alignment"
         ],
         "image": {
             "toolbar": [
