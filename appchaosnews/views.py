@@ -8,9 +8,9 @@ from django.contrib import messages
 from django.urls import reverse
 from django.db.models import Q
 from django.contrib.auth import logout
-from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-
+from django.contrib.auth.views import LoginView
+from .forms import CustomAuthenticationForm
 from django.views.decorators.http import require_POST
 
 def index(request):
@@ -170,9 +170,10 @@ def registro(request):
         form = RegistroForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('login')  # Redireccionar al inicio de sesión después de un registro exitoso
+            return redirect('login')
     else:
-        form = RegistroForm()
+        form = RegistroForm(initial={'first_name': '', 'last_name': '', 'email': '', 'username': ''})  # Valores iniciales vacíos para evitar 'None'
+
     return render(request, 'appchaosnews/registro.html', {'form': form})
 
 
@@ -199,3 +200,15 @@ def subir_perfil(request, user_id=None):
         user_form = UserProfileForm(instance=user)
     
     return render(request, 'appchaosnews/perfil.html', {'profile_form': profile_form, 'user_form': user_form, 'user_p': user})
+
+
+class CustomLoginView(LoginView):
+    template_name = 'appchaosnews/login.html'
+    authentication_form = CustomAuthenticationForm
+
+    def form_invalid(self, form):
+        messages.error(self.request, 'Credenciales inválidas. Inténtelo de nuevo.')
+        return super().form_invalid(form)
+
+    def get_success_url(self):
+        return '/appchaosnews/index'  # Cambia esto por la URL a la que quieres redirigir tras el login exitoso

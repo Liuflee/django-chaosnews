@@ -7,7 +7,7 @@ urlpatterns = [
     path('index/', views.index, name='index'),
     path('FAQ/', views.FAQ, name='FAQ'),
     path('registro/', views.registro, name='registro'),
-    path('login/', auth_views.LoginView.as_view(template_name='appchaosnews/login.html', authentication_form=CustomAuthenticationForm), name='login'),
+    path('login/', views.CustomLoginView.as_view(), name='login'),
     path('logout/', views.logout_view, name='logout'),
     path('quienes_somos/', views.quienes_somos, name='quienes_somos'),
     path('noticia/<int:noticia_id>/', views.detalle_noticia, name='detalle_noticia'),

@@ -1,26 +1,11 @@
+{% extends 'appchaosnews/base.html' %}
+
 {% load static %}
 {% load custom_filters %}
 
-<!DOCTYPE html>
-<html lang="es" >
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Detalle de Noticia - Chaos News</title>
-  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
-  <link href="{% static 'django_ckeditor_5/dist/styles.css' %}" type="text/css" media="all" rel="stylesheet">
-  <script src="{% static 'django_ckeditor_5/dist/bundle.js' %}"></script>
-  <!-- script para cambiar modo -->
-  <script src="{% static 'script.js' %}"></script>
-</head>
+{% block title %}Detalle de Noticia{% endblock %}
 
-<body class="light-mode"> <!-- clase para el modo oscuro -->
-
-<!-- navbar -->
-{% include 'appchaosnews/navbar.html' %}
+{% block content %}
 
 <!-- Contenido de la noticia en detalle -->
 <div class="container mt-4">
@@ -98,7 +83,7 @@
 
 
  <!-- Sección de comentarios -->
-{% block content %}
+{% block comments %}
 <div id="comment-section" class="mt-4">
   <h4 class="mb-4">Comentarios</h4>
   <form id="comment-form" method="post" action="{% url 'comentar_noticia' noticia.id %}">
@@ -135,7 +120,7 @@
     {% else %}
       {% for comentario in comentarios %}
         {% if not comentario.parent %}
-          {% include "appchaosnews/comment.html" with comment=comentario %}
+          {% include "appchaosnews/components/comment.html" with comment=comentario %}
         {% endif %}
       {% endfor %}
     {% endif %}
@@ -174,211 +159,10 @@
 <button id="volverArribaBtn" class="btn btn-tr volver-arriba-btn" onclick="scrollToTop()">
   <img src="{% static '/images/backarrow.png' %}" alt="" class="volver-arriba-img">
 </button>
-
-<!-- Modal de contacto -->
-
-<div id="contactoModal" class="modal fade" tabindex="-1" role="dialog">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content modal-bg"> <!-- Añade la clase dark-mode-bg al modal -->
-      <div class="modal-header">
-        <h5 class="modal-title">Contáctanos</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <i class="fas fa-xmark"></i>
-        </button>
-      </div>
-      <div class="modal-body">
-        <h1 class="text-center">Contáctanos</h1>
-        <p class="text-center">¡Estamos aquí para ayudarte! Completa el siguiente formulario y nos pondremos en contacto contigo lo antes posible.</p>
-
-        <form action="enviar.php" method="post">
-          <div class="form-group mt-5">
-            <input type="text" class="form-control form-control-sm" id="nombre" name="nombre" placeholder="Nombre" required>
-          </div>
-          <div class="form-group">
-            <input type="email" class="form-control form-control-sm" id="email" name="email" placeholder="Correo electrónico" required>
-          </div>
-          <div class="form-group">
-            <textarea class="form-control form-control-sm" id="mensaje" name="mensaje" rows="5" placeholder="Mensaje" required></textarea>
-          </div>
-          <div class="text-center">
-            <button type="submit" class="btn btn-tr btn-modal">
-              <i class="fas fa-paper-plane"></i> Enviar mensaje</button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
-
-<footer class="footer mt-auto py-3">
-      
-    <div class="container">
-        <hr class="hrxd">
-      <span class="text-muted">© 2024 Chaos News. Todos los derechos reservados.</span>
-    </div>
-  </footer>
-
-<!-- Scripts de Bootstrap y otros -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<script>
-
-  // Función para el efecto de las noticias relacionadas
-  function stickyOtherNews() {
-  var otherNews = document.querySelector('.other-news');
-  var otherNewsOffset = otherNews.offsetTop;
-    if (window.scrollY > otherNewsOffset) {
-        otherNews.classList.add('sticky');
-    } else {
-        otherNews.classList.remove('sticky');
-    }
-  }
-
-  // Agregar un event listener para detectar el desplazamiento de la página
-  window.addEventListener('scroll', stickyOtherNews);
-
-  // Event listener para el botón de like
-  document.getElementById('like-button').addEventListener('click', function() {
-    var url = this.getAttribute('data-url');
-    fetch(url, {
-      method: 'POST',
-      headers: {
-        'X-CSRFToken': '{{ csrf_token }}',
-        'Content-Type': 'application/json'
-      }
-    })
-    .then(response => response.json())
-    .then(data => {
-      document.getElementById('likes-count').textContent = data.likes_count;
-    });
-  });
-
-  //Función para el tamaño del textarea del comentario principal
-  document.addEventListener('DOMContentLoaded', function() {
-    var textarea = document.getElementById('comment-area');
-
-    textarea.addEventListener('input', function() {
-        this.style.height = 'auto'; // Resetea la altura para calcular el scrollHeight correctamente
-        this.style.height = (this.scrollHeight) + 'px';
-    });
-
-    textarea.addEventListener('focus', function() {
-        this.classList.add('no-placeholder'); // Oculta el placeholder
-        if (this.scrollHeight < 152) {
-            this.style.height = '150px'; // Altura mínima al enfocarse
-        } else {
-            this.style.height = (this.scrollHeight) + 'px'; // Ajuste según el contenido
-        }
-    });
-
-    textarea.addEventListener('blur', function() {
-        this.classList.remove('no-placeholder'); // Muestra el placeholder nuevamente
-        if (this.value === '') {
-            this.style.height = '50px'; // Altura base al perder el foco si está vacío
-        }
-    });
-});
-
-  //Función para mostrar el botón de enviar al enfocar el área de comentario
-  document.addEventListener('DOMContentLoaded', function() {
-    var commentArea = document.getElementById('comment-area');
-    var sendButtonWrapper = document.querySelector('.send-btn-wrapper');
-
-    // Mostrar el contenedor del botón de enviar cuando el área de comentario obtiene foco
-    commentArea.addEventListener('focus', function() {
-        sendButtonWrapper.style.display = 'flex';
-    });
-
-    // Ocultar el contenedor del botón de enviar cuando el área de comentario pierde foco y está vacía
-    commentArea.addEventListener('blur', function() {
-        if (commentArea.value.trim() === '') {
-            sendButtonWrapper.style.display = 'none';
-        }
-    });
-
-    // Si el área de comentario ya tiene contenido al cargar la página, asegúrate de mostrar el contenedor del botón de enviar
-    if (commentArea.value.trim() !== '') {
-        sendButtonWrapper.style.display = 'flex';
-    } else {
-        sendButtonWrapper.style.display = 'none';
-    }
-});
-
- // Función para enviar el formulario de comentarios
-  $(document).ready(function(){
-  $('#comment-form').submit(function(event){
-    event.preventDefault();
-    
-    var form = $(this);
-    var actionUrl = form.attr('action');
-    var formData = form.serialize();
-    
-    $.post(actionUrl, formData, function(response){
-      // Suponiendo que el servidor devuelve la sección de comentarios actualizada
-      $('#comments').html($(response).find('#comments').html());
-      
-      // Desplazar el scroll hacia la sección de comentarios
-      $('html, body').animate({
-        scrollTop: $("#comment-section").offset().top
-      }, 1000);
-      
-      // Limpiar el área de comentario
-      $('#comment-area').val('');
-      $('#comment-area').blur();
-
-    });
-  });
-});
-
-  // Función para manejar el formulario de las respuestas.
-  $(document).ready(function(){
-
-    $('.reply-form').submit(function(event){
-        event.preventDefault();
-        
-        var form = $(this);
-        var actionUrl = form.attr('action');
-        var formData = form.serialize();
-        
-        $.post(actionUrl, formData, function(response){
-
-            var parentId = form.find('input[name="parent_id"]').val();
-            $('#replies-' + parentId).html($(response).find('#replies-' + parentId).html());
-
-            var newReplyCount = $(response).find('.btn-toggle-replies[data-comment-id="' + parentId + '"]').data('replies-count');
-            console.log("New reply count:", newReplyCount);
-
-            var replyButton = $('#reply-count-' + parentId).find('.btn-toggle-replies');
-            replyButton.data('replies-count', newReplyCount);
-
-            if (newReplyCount == 1) {
-                replyButton.html('<i class="fa-solid fa-chevron-down"></i> ' + newReplyCount + ' respuesta');
-            } else {
-                replyButton.html('<i class="fa-solid fa-chevron-down"></i> ' + newReplyCount + ' respuestas');
-            }
-
- 
-            form.find('textarea').val('');
-        }).fail(function(){
-            console.log("Error al enviar la respuesta.");
-        });
-    });
   
+{% endblock %}
 
-    window.toggleReplyForm = function(commentId) {
-        $('#reply-form-' + commentId).toggle();
-    }
+{% block scripts %}
+<script src="{% static 'js/detalle_noticia.js' %}"></script>
 
-    window.toggleReplies = function(commentId) {
-        $('#replies-' + commentId).toggle();
-    }
-});
-
-
-</script>
-
-</body>
-</html>
-
+{% endblock %}

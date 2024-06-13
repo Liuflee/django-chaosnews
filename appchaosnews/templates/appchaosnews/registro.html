@@ -1,109 +1,73 @@
-<!-- templates/appchaosnews/login.html -->
-{% load static %}
-<!DOCTYPE html>
-<html lang="es">
+{% extends 'appchaosnews/base.html' %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chaos News</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+{% block title %}Registro{% endblock %}
 
-    <!-- script para cambiar modo -->
-    <script src="{% static 'script.js' %}"></script>
-
-
-</head>
-
-<body class="light-mode">
-
-
-<!-- navbar -->
-{% include 'appchaosnews/navbar.html' %}
+{% block content %}
 
 <!-- Formulario de registro -->
 <div class="container mt-4">
-    <div class="row justify-content-center">
-        <div class="col-md-6">
-            <div class="card shadow">
-                <div class="card-body">
-                    <h2 class="text-center mb-4">¡Únete a nosotros!</h2>
-                    <form method="POST" action="{% url 'registro' %}">
-                        {% csrf_token %}
-                        <div class="form-group">
-                            <input type="text" class="form-control" id="id_first_name" name="first_name" placeholder="Nombre">
-                        </div>
-                        <div class="form-group">
-                            <input type="text" class="form-control" id="id_last_name" name="last_name" placeholder="Apellido">
-                        </div>
-                        <div class="form-group">
-                            <input type="email" class="form-control" id="id_email" name="email" placeholder="Correo electrónico">
-                        </div>
-                        <div class="form-group">
-                            <input type="text" class="form-control" id="id_username" name="username" placeholder="Nombre de usuario">
-                        </div>
-                        <div class="form-group">
-                            <input type="password" class="form-control" id="id_password1" name="password1" placeholder="Contraseña">
-                        </div>
-                        <div class="form-group">
-                            <input type="password" class="form-control" id="id_password2" name="password2" placeholder="Confirmar contraseña">
-                        </div>
-                        <button type="submit" class="btn btn-primary btn-block">Registrarse</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-    
-<!-- Modal de contacto -->
-<div id="contactoModal" class="modal fade" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content modal-bg"> <!-- Añade la clase dark-mode-bg al modal -->
-        <div class="modal-header">
-          <h5 class="modal-title">Contáctanos</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <i class="fas fa-xmark"></i>
-          </button>
-        </div>
-        <div class="modal-body">
-          <h1 class="text-center">Contáctanos</h1>
-          <p class="text-center">¡Estamos aquí para ayudarte! Completa el siguiente formulario y nos pondremos en contacto contigo lo antes posible.</p>
-  
-          <form action="enviar.php" method="post">
-            <div class="form-group mt-5">
-              <input type="text" class="form-control form-control-sm" id="nombre" name="nombre" placeholder="Nombre" required>
-            </div>
-            <div class="form-group">
-              <input type="email" class="form-control form-control-sm" id="email" name="email" placeholder="Correo electrónico" required>
-            </div>
-            <div class="form-group">
-              <textarea class="form-control form-control-sm" id="mensaje" name="mensaje" rows="5" placeholder="Mensaje" required></textarea>
-            </div>
-            <div class="text-center">
-              <button type="submit" class="btn btn-tr btn-modal">
-                <i class="fas fa-paper-plane"></i> Enviar mensaje</button>
-            </div>
-          </form>
-        </div>
+  <div class="row justify-content-center">
+      <div class="col-md-6">
+          <div class="card shadow">
+              <div class="card-body">
+                  <h2 class="text-center mb-4">¡Únete a nosotros!</h2>
+                  <form method="POST" action="{% url 'registro' %}">
+                      {% csrf_token %}
+
+                      <div class="form-group">
+                          <label for="id_first_name">Nombre</label>
+                          <input type="text" class="form-control {% if form.first_name.errors %}is-invalid{% endif %}" id="id_first_name" name="first_name" placeholder="Nombre" value="{{ form.first_name.value }}">
+                          {% for error in form.first_name.errors %}
+                              <div class="invalid-feedback">{{ error }}</div>
+                          {% endfor %}
+                      </div>
+
+                      <div class="form-group">
+                          <label for="id_last_name">Apellido</label>
+                          <input type="text" class="form-control {% if form.last_name.errors %}is-invalid{% endif %}" id="id_last_name" name="last_name" placeholder="Apellido" value="{{ form.last_name.value }}">
+                          {% for error in form.last_name.errors %}
+                              <div class="invalid-feedback">{{ error }}</div>
+                          {% endfor %}
+                      </div>
+
+                      <div class="form-group">
+                          <label for="id_email">Correo electrónico</label>
+                          <input type="email" class="form-control {% if form.email.errors %}is-invalid{% endif %}" id="id_email" name="email" placeholder="Correo electrónico" value="{{ form.email.value }}">
+                          {% for error in form.email.errors %}
+                              <div class="invalid-feedback">{{ error }}</div>
+                          {% endfor %}
+                      </div>
+
+                      <div class="form-group">
+                          <label for="id_username">Nombre de usuario</label>
+                          <input type="text" class="form-control {% if form.username.errors %}is-invalid{% endif %}" id="id_username" name="username" placeholder="Nombre de usuario" value="{{ form.username.value }}">
+                          {% for error in form.username.errors %}
+                              <div class="invalid-feedback">{{ error }}</div>
+                          {% endfor %}
+                      </div>
+
+                      <div class="form-group">
+                          <label for="id_password1">Contraseña</label>
+                          <input type="password" class="form-control {% if form.password1.errors %}is-invalid{% endif %}" id="id_password1" name="password1" placeholder="Contraseña">
+                          {% for error in form.password1.errors %}
+                              <div class="invalid-feedback">{{ error }}</div>
+                          {% endfor %}
+                      </div>
+
+                      <div class="form-group">
+                          <label for="id_password2">Confirmar contraseña</label>
+                          <input type="password" class="form-control {% if form.password2.errors %}is-invalid{% endif %}" id="id_password2" name="password2" placeholder="Confirmar contraseña">
+                          {% for error in form.password2.errors %}
+                              <div class="invalid-feedback">{{ error }}</div>
+                          {% endfor %}
+                      </div>
+
+                      <button type="submit" class="btn btn-primary btn-block">Registrarse</button>
+                  </form>
+              </div>
+          </div>
       </div>
-    </div>
   </div>
-
-<!-- footer -->
-<footer class="footer mt-auto py-3 fixed-bottom">
-    <div class="container text-center">
-        <hr class="hrxd">
-        <span class="text-muted">© 2024 Chaos News. Todos los derechos reservados.</span>
-    </div>
-</footer>
-
-<!-- scripts de bootstrap -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-</body>
-
-</html>
+</div>
+  
+{% endblock %}
