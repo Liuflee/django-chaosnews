@@ -11,96 +11,9 @@
   <script src="{% static 'script.js' %}"></script>
 </head>
 <body class="light-mode"> <!-- Asegúrate de tener la clase correcta para el modo oscuro -->
-<!-- navbar -->
-<!-- navbar -->
-<nav class="navbar navbar-expand-lg navbar">
-  <a class="navbar-brand" href="{% url 'index' %}">
-      <img class="logo" src="{% static 'images/Chaos News-logo.png' %}" alt="">
-  </a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-  </button>
-  <!-- enlaces de la barra de navegación -->
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav m-auto">
-
-          <li class="nav-item">
-              <a class="dropdown-item navbar-main" href="{% url 'quienes_somos' %}">
-                <i class="fa-solid fa-users fa-lg mr-2"></i>Quiénes somos
-              </a>
-          </li>
-
-          <li class="nav-item">
-              <a class="dropdown-item navbar-main " href="{% url 'FAQ' %}">
-                <i class="fa-solid fa-circle-question fa-lg mr-2"></i>Preguntas frecuentes
-              </a>
-          </li>
-
-          <li class="nav-item">
-              <a class="dropdown-item navbar-main" style="cursor: pointer;" id="contacto" data-toggle="modal" data-target="#contactoModal">
-                <i class="fa-solid fa-comment fa-lg mr-2"></i>Contáctanos
-              </a>
-          </li>
-
-
   
-      </ul>
-    {% if user.is_authenticated %}
-          <!-- Si el usuario está autenticado, se muestra el dropdown con las opciones de cuenta -->
-          <div class="nav-item dropdown">
-            
-              <a class="navbar-brand" href="#" id="accountDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <img src="{{ user.userprofile.profile_picture.url }}" class="icon profile-icon" alt="">
-                <span class="d-md-none" style="font-size: 16px;">{{ user.first_name|add:" "|add:user.last_name }}</span>
-              </a>
-              <div class="dropdown-menu dropdown-bg dropdown-menu-right" aria-labelledby="accountDropdown">
-                <a class="dropdown-item navbar-main" href="{% url 'perfil' %}">
-                  <i class="fa-solid fa-user mr-2"></i>  Mi perfil</a>
-                {% if perms.appchaosnews.add_noticia %}
-                  <a class="dropdown-item navbar-main" href="{% url 'subir_noticia' %}">
-                    <i class="fa-solid fa-upload mr-2"></i>  Subir Noticia</a>
-                {% endif %}
-                  <a class="dropdown-item navbar-main" href="{% url 'logout' %}">
-                    <i class="fa-solid fa-arrow-right-from-bracket mr-2"></i>  Cerrar sesión</a>
-                  
-                    <a class="dropdown-item navbar-main" id="modoBtn" href="#">
-                      <i class="fa-solid fa-sun mr-2 icon-mode-dark"></i><i class="fa-solid fa-moon mr-2 icon-mode"></i>  Cambiar modo
-                  </a>
-              </div>
-          </div>
-          {% else %}
-          
-          <div class="nav-item dropdown">
-
-            <a class="dropdown-item navbar-main media-account" style="display: none;" href="#" id="accountDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <i class="fa-solid fa-circle-user fa-lg mr-2"></i> Iniciar sesión
-            </a>
-
-              <a class="navbar-brand account" href="#" id="accountDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fa-solid fa-circle-user fa-lg mr-2"></i>
-              </a>
-              
-              <div class="dropdown-menu dropdown-bg dropdown-menu-right" aria-labelledby="accountDropdown">
-                  <a class="dropdown-item" href="{% url 'login' %}">
-                    <i class="fa-solid fa-arrow-right-to-bracket mr-2"></i>  Iniciar sesión</a>
-
-                  <a class="dropdown-item" href="{% url 'registro' %}">
-                    <i class="fa-solid fa-user-plus mr-2"></i>  Registrarse</a>
-                  </a>
-                  
-                  <a class="dropdown-item" id="modoBtn" href="#">
-                    <i class="fa-solid fa-sun mr-2 icon-mode-dark"></i><i class="fa-solid fa-moon mr-2 icon-mode"></i>  Cambiar modo
-                </a>
-              </div>
-
-          </div>
-
-          {% endif %}
-    </div>
-</nav>
-
-
+<!-- navbar -->
+{% include 'appchaosnews/navbar.html' %}
 
 <div class="container mt-5">
   <div class="row justify-content-center">
