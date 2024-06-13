@@ -1,6 +1,5 @@
 from django.db import models
 from django.contrib.auth.models import User
-from ckeditor.fields import RichTextField
 from django_ckeditor_5.fields import CKEditor5Field
 from django.db.models.signals import post_save
 from django.dispatch import receiver
