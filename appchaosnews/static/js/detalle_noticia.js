@@ -104,47 +104,51 @@
       });
     });
   });
+
   
-    // Función para manejar el formulario de las respuestas.
-    $(document).ready(function(){
-  
-      $('.reply-form').submit(function(event){
-          event.preventDefault();
-          
-          var form = $(this);
-          var actionUrl = form.attr('action');
-          var formData = form.serialize();
-          
-          $.post(actionUrl, formData, function(response){
-  
-              var parentId = form.find('input[name="parent_id"]').val();
-              $('#replies-' + parentId).html($(response).find('#replies-' + parentId).html());
-  
-              var newReplyCount = $(response).find('.btn-toggle-replies[data-comment-id="' + parentId + '"]').data('replies-count');
-              console.log("New reply count:", newReplyCount);
-  
-              var replyButton = $('#reply-count-' + parentId).find('.btn-toggle-replies');
-              replyButton.data('replies-count', newReplyCount);
-  
-              if (newReplyCount == 1) {
-                  replyButton.html('<i class="fa-solid fa-chevron-down"></i> ' + newReplyCount + ' respuesta');
-              } else {
-                  replyButton.html('<i class="fa-solid fa-chevron-down"></i> ' + newReplyCount + ' respuestas');
-              }
-  
-   
-              form.find('textarea').val('');
-          }).fail(function(){
-              console.log("Error al enviar la respuesta.");
-          });
-      });
-    
-  
-      window.toggleReplyForm = function(commentId) {
-          $('#reply-form-' + commentId).toggle();
-      }
-  
-      window.toggleReplies = function(commentId) {
-          $('#replies-' + commentId).toggle();
-      }
-  });
+  $(document).ready(function() {
+    $('.reply-form').submit(function(event) {
+        event.preventDefault();  // Previene la recarga de la página
+        
+        var form = $(this);
+        var actionUrl = form.attr('action');
+        var formData = form.serialize();
+        
+        // Deshabilitar el botón de enviar temporalmente
+        form.find('button[type="submit"]').prop('disabled', true);
+
+        $.post(actionUrl, formData)
+            .done(function(response) {
+                var parentId = form.find('input[name="parent_id"]').val();
+                $('#replies-' + parentId).html($(response).find('#replies-' + parentId).html());
+
+                var newReplyCount = $(response).find('.btn-toggle-replies[data-comment-id="' + parentId + '"]').data('replies-count');
+                console.log("New reply count:", newReplyCount);
+
+                var replyButton = $('#reply-count-' + parentId).find('.btn-toggle-replies');
+                replyButton.data('replies-count', newReplyCount);
+
+                if (newReplyCount == 1) {
+                    replyButton.html('<i class="fa-solid fa-chevron-down"></i> ' + newReplyCount + ' respuesta');
+                } else {
+                    replyButton.html('<i class="fa-solid fa-chevron-down"></i> ' + newReplyCount + ' respuestas');
+                }
+
+                // Restablecer el formulario
+                form.find('textarea').val('');
+                form.find('button[type="submit"]').prop('disabled', false);
+            })
+            .fail(function() {
+                console.log("Error al enviar la respuesta.");
+                form.find('button[type="submit"]').prop('disabled', false);
+            });
+    });
+
+    window.toggleReplyForm = function(commentId) {
+        $('#reply-form-' + commentId).toggle();
+    }
+
+    window.toggleReplies = function(commentId) {
+        $('#replies-' + commentId).toggle();
+    }
+});

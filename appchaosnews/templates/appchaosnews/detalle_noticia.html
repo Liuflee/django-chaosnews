@@ -20,6 +20,12 @@
             <span class="" title="{{ noticia.fecha_subida|date:'j N, Y H:i' }}">
               <i class="fas fa-clock mr-1 ml-1"></i> {{ noticia.fecha_subida|human_readable_time }} 
             </span>
+            <b>•</b>
+            {% if noticia.contenido|news_read_time > 0 %}
+              <span class="ml-1">
+                <i class="fas fa-stopwatch mr-1"></i> {{ noticia.contenido|news_read_time }} min
+              </span>
+            {% endif %}
         </p>
         {% if user == noticia.autor %}
         <div class="text-right" style="display: inline; float: inline-end;">
@@ -152,6 +158,7 @@
 
 
   </div>
+  {% include 'appchaosnews/components/footer.html' %}
 </div>
 
 

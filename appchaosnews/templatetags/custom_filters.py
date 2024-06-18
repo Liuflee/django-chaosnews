@@ -31,3 +31,10 @@ def human_readable_time(value):
         return f"Hace {minutes} {'minuto' if minutes == 1 else 'minutos'}"
     else:
         return "Hace unos segundos"
+
+
+@register.filter
+def news_read_time(value):
+    words = len(value.split())
+    minutes = words / 200
+    return int(minutes) if minutes >= 1 else 1
